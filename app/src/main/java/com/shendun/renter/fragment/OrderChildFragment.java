@@ -293,10 +293,12 @@ public class OrderChildFragment extends BaseFragment<FragmentOrderRoomBinding> {
                     @Override
                     protected void onResponse(ResponseBean result) {
                         if(result.isSuccessful()){
-                            showCenterToast(getString(R.string.cancel_success));
                             //退房需要释放门锁密码
                             if(Constants.ORDER_ACTION_CHECKOUT.equals(action)){
+                                showCenterToast(getString(R.string.room_out_success));
                                 releaseLock(bean);
+                            } else {
+                                showCenterToast(getString(R.string.cancel_success));
                             }
 
                             doRefresh();
