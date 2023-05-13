@@ -1,0 +1,134 @@
+plugins {
+  id 'com.android.application'
+}
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    applicationId rootProject.ext.applicationId
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
+
+    ndk {
+      abiFilters "armeabi"
+    }
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  signingConfigs {
+    config {
+      keyAlias 'room_owner'
+      keyPassword '123456'
+      storeFile file('../keystore')
+      storePassword '123456'
+    }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      signingConfig signingConfigs.config
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+      applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+          def outputFile = output.outputFile
+          if (outputFile != null && variant.buildType.name.equals('release')) {
+            def fileName = "room_owner_v${defaultConfig.versionName}_${releaseTime()}.apk"
+            outputFileName = fileName
+          }
+        }
+      }
+    }
+  }
+
+  dataBinding {
+    enabled = true
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  sourceSets {
+    main {
+      jniLibs.srcDirs = ['libs']
+    }
+  }
+}
+
+def releaseTime() {
+  return new Date().format("yyyyMMdd_HHmm")
+}
+
+dependencies {
+  implementation 'androidx.appcompat:appcompat:1.2.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+  implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+  implementation 'com.google.android.material:material:1.2.1'
+
+  implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
+  annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
+
+  implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
+
+  implementation 'me.yokeyword:fragmentationx-core:1.0.2'
+
+  implementation "com.squareup.retrofit2:retrofit:2.9.0"
+  implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+  implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
+
+  implementation "com.squareup.okhttp3:okhttp:4.9.0"
+  implementation "com.squareup.okhttp3:okhttp-urlconnection:4.9.0"
+  implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+  implementation "me.jessyan:autosize:1.1.2"
+
+  implementation "com.google.code.gson:gson:2.8.6"
+
+  implementation 'me.jessyan:retrofit-url-manager:1.4.0'
+
+  implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
+  //rxlifecycler
+  implementation 'com.trello.rxlifecycle4:rxlifecycle:4.0.0'
+  implementation 'com.trello.rxlifecycle4:rxlifecycle-android:4.0.0'
+
+  implementation 'com.github.bumptech.glide:glide:4.11.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+  implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
+  implementation 'com.jakewharton.timber:timber:4.7.1'
+  implementation 'com.blankj:utilcode:1.30.0'
+  implementation 'org.greenrobot:eventbus:3.1.1'
+
+  // 基础依赖包，必须要依赖
+  implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+  // fragment快速实现（可选）
+  implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+  // permissionx 权限库
+  implementation 'com.permissionx.guolindev:permissionx:1.4.0'
+  implementation 'me.jessyan:rxerrorhandler:2.1.1'             //rxjava2
+
+  implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+
+  implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.0.1'
+  //高保真图片压缩
+  implementation 'com.zxy.android:tiny:1.1.0'
+  //app更新
+  implementation 'io.github.azhon:appupdate:3.0.7'
+
+  implementation project(path: ':topbar')
+  implementation project(path: ':loading_dialog')
+  implementation project(path: ':snackbar')
+  implementation project(path: ':openCVLibrary330')
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = "UTF-8"
+}

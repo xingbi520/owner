@@ -1,0 +1,39 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+  repositories {
+    jcenter()
+    google()
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:4.1.0"
+  }
+}
+
+allprojects {
+  repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+      url 'https://jitpack.io'
+    }
+    maven {
+      url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+    google()
+  }
+}
+
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
+
+ext {
+  compileSdkVersion = 30
+  buildToolsVersion = "30.0.2"
+  applicationId = "com.shendun.owner"
+  minSdkVersion = 21
+  targetSdkVersion = 29
+  versionCode = 115
+  versionName = "1.1.5"
+}

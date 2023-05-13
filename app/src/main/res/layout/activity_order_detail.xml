@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.shendun.renter.widget.NoScrollRecyclerView" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F7F7F7"
+        android:orientation="vertical">
+
+        <com.shendun.topbar.widget.TopBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:centerText="@string/app_name"
+            app:centerTextColor="#333"
+            app:centerTextSize="20sp"
+            app:centerType="textView"
+            app:leftType="imageButton"
+            app:rightTextColor="#008aff"
+            app:rightTextSize="15sp"
+            app:rightType="textView" />
+
+        <include
+            android:id="@+id/ll_order"
+            layout="@layout/item_order_for_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/ll_order" >
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edit"
+                android:textAlignment="center"
+                android:hint="请输入开门密码6位数字"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/textColorHint"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <Button
+                android:id="@+id/bt_reset_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/bg_login_submit"
+                android:elevation="0dp"
+                android:outlineProvider="none"
+                android:text="@string/reset_pwd"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/et_content"/>
+            <Button
+                android:id="@+id/bt_reset_shendun_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/bg_login_submit"
+                android:elevation="0dp"
+                android:outlineProvider="none"
+                android:text="@string/reset_shendun_pwd"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/bt_reset_pwd"/>
+            <Button
+                android:id="@+id/bt_modify"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:visibility="gone"
+                android:layout_marginVertical="15dp"
+                android:background="@drawable/bg_login_submit"
+                android:elevation="0dp"
+                android:outlineProvider="none"
+                android:text="@string/modify"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bt_reset_shendun_pwd"
+                app:layout_constraintEnd_toStartOf="@id/bt_cohabitant"/>
+            <Button
+                android:id="@+id/bt_cohabitant"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_login_submit"
+                android:elevation="0dp"
+                android:outlineProvider="none"
+                android:text="@string/cohabitant"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="@id/bt_modify"
+                app:layout_constraintStart_toEndOf="@id/bt_modify"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_check_in_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="20dp"
+            android:text="入住人数"
+            android:textSize="13sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="20dp"
+            android:clipChildren="false"
+            android:scrollbars="none" />
+    </LinearLayout>
+</layout>

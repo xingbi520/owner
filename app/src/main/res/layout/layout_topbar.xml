@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.shendun.topbar.widget.TopBar" />
+    </data>
+    <com.shendun.topbar.widget.TopBar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:centerText="@string/app_name"
+        app:centerTextColor="#333"
+        app:centerTextSize="20sp"
+        app:centerType="textView"
+        app:leftType="imageButton"
+        app:rightTextColor="#008aff"
+        app:rightTextSize="15sp"
+        app:rightType="textView" />
+</layout>

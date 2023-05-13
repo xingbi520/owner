@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f7fc"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal">
+        <include
+            android:id="@+id/titleBar"
+            layout="@layout/layout_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:id="@+id/rlyt_input_phone"
+            style="@style/account_input_info_shape"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintTop_toBottomOf="@id/titleBar">
+
+            <EditText
+                android:id="@+id/et_input_phone"
+                style="@style/account_input_info_content"
+                android:layout_toStartOf="@id/phone_clear_img"
+                android:background="@null"
+                android:hint="@string/login_please_input_phone_num"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="11" />
+            <ImageView
+                android:id="@+id/phone_clear_img"
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:cropToPadding="true"
+                android:padding="14dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/btn_clear"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/login_phone_error_msg"
+            style="@style/account_input_info_err_hint"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:layout_constraintTop_toBottomOf="@id/rlyt_input_phone" />
+
+        <RelativeLayout
+            android:id="@+id/rlyt_input_pwd"
+            style="@style/account_input_info_shape"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/login_phone_error_msg">
+            <EditText
+                android:id="@+id/et_input_pwd"
+                style="@style/account_input_info_content"
+                android:layout_toStartOf="@id/login_pwd_eye_img"
+                android:background="@null"
+                android:hint="@string/login_please_input_pwd"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+            <ImageView
+                android:id="@+id/login_pwd_eye_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:cropToPadding="true"
+                android:paddingStart="11dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="11dp"
+                android:paddingBottom="14dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_pwd_eye_selector" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/login_pwd_error_msg"
+            style="@style/account_input_info_err_hint"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:layout_constraintTop_toBottomOf="@id/rlyt_input_pwd" />
+        <Button
+            android:id="@+id/btn_login_code"
+            style="@style/BottomBlueBtnStyle"
+            android:layout_marginBottom="40dp"
+            android:enabled="false"
+            android:text="@string/login_right_now"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

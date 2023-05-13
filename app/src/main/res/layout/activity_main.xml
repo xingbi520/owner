@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
+        <View
+            android:id="@+id/status_bar_ll"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/theme_blue"/>
+
+        <com.shendun.renter.widget.NoScrollViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/color_F7F7F7"/>
+
+        <FrameLayout
+            android:id="@+id/nav_host_container"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:clipChildren="false">
+            <com.shendun.renter.widget.BottomNavigationViewEx
+                android:id="@+id/bnve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:clipChildren="false"
+                app:itemBackground="@android:color/white"
+                app:itemTextColor="@color/bottom_nav_selector_color"
+                app:menu="@menu/bottom_nav" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>

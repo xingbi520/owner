@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="theme_main">#008AFF</color>
+    <color name="theme_blue">#31AFF1</color>
+
+    <color name="cloud_light_dark">#999999</color>
+    <color name="main_green">#24cf5f</color>
+    <color name="main_gray">#9A9A9A</color>
+    <color name="main_black">#333</color>
+    <color name="actionbar_background">@color/main_green</color>
+    <color name="transparent">#00000000</color>
+    <color name="window_background">#f2f2f2</color>
+
+    <!--btn-->
+    <color name="dialog_press">#ff2626</color>
+    <color name="dialog_nomal">#3c3c3c</color>
+
+    <!-- 新版登录模块-->
+    <color name="login_line_color">#dededf</color>
+    <color name="login_input_active">#FF79CDCD</color>
+    <color name="login_other_color">#cacaca</color>
+    <color name="account_input_bg_color">#33ffffff</color>
+    <color name="account_lock_bg">#ff43815c</color>
+    <color name="account_lock_font_color">#FF68997C</color>
+    <color name="account_input_color">#c9c9c9</color>
+    <color name="account_pressed_true">#14b94d</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColor">#202020</color>
+    <color name="textColorHint">#A0A0A0</color>
+    <color name="textColorVice">#6C6C6C</color>
+    <color name="viewLineColor">#F0F0F0</color>
+
+    <color name="list_divider_color">#c8c7cc</color>
+    <color name="text_secondary_color">#9d9d9d</color>
+    <color name="text_title_color">#111111</color>
+
+    <color name="color_47CEFC">#47CEFC</color>
+    <color name="color_F47F72">#F47F72</color>
+    <color name="color_C9C9C9">#C9C9C9</color>
+    <color name="color_F7F7F7">#F7F7F7</color>
+
+    <color name="cloud_theme">#008aff</color>
+    <color name="cloud_dark">#333333</color>
+    <color name="cloud_normal_dark">#666666</color>
+    <color name="cloud_background">#f3f3f8</color>
+    <color name="cloud_color_grey">#cccccc</color>
+    <color name="color_gray_bg">#eeeeee</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+
+    <color name="text_black_adadad">#adadad</color>
+
+    <color name="color_f3f3f8">#f3f3f8</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_ff3a2f">#ff3a2f</color>
+    <color name="color_ff3a2e">#ff3a2e</color>
+    <color name="color_fa5c5c">#fa5c5c</color>
+    <color name="color_929292">#929292</color>
+    <color name="color_59A1B5">#59A1B5</color>
+    <color name="color_0085ff">#0085ff</color>
+    <color name="color_008aff">#008aff</color>
+    <color name="color_0089ff">#0089ff</color>
+    <color name="color_ededed">#ededed</color>
+    <color name="color_99a2bc">#99a2bc</color>
+    <color name="color_f6f6fb">#f6f6fb</color>
+    <color name="color_efeff3">#efeff3</color>
+    <color name="color_e4e4e4">#e4e4e4</color>
+    <color name="color_5f228d">#5f228d</color>
+    <color name="color_f7f7fc">#f7f7fc</color>
+    <color name="color_f2f2f8">#f2f2f8</color>
+    <color name="color_49C5A7">#49C5A7</color>
+    <color name="color_cc0000">#cc0000</color>
+    <color name="color_ff0000">#ff0000</color>
+
+    <color name="color_fff2f9ff">#fff2f9ff</color>
+    <color name="color_ffeef7ff">#ffeef7ff</color>
+    <color name="color_fff7f7fc">#fff7f7fc</color>
+
+    <color name="bottom_menu_btn_bg_common_color">#FFFFFF</color>
+    <color name="bottom_menu_btn_bg_press_color">#EEEEEE</color>
+    <color name="bottom_menu_btn_text_commom_color">#008aff</color>
+    <color name="bottom_menu_btn_text_press_colot">#3F51B5</color>
+    <color name="bottom_menu_btn_text_stress_color">#FF0000</color>
+    <color name="bottom_menu_layout_color">#00000000</color>
+</resources>

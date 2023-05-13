@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.shendun.renter.widget.tablayout.CloudTabLayout" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F7F7F7"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rl_person_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:background="@color/theme_blue">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/my_rooms"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginVertical="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_toLeftOf="@+id/tv_search"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:background="@drawable/shape_radius_19_f3f3f8">
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_cloud_search" />
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/textColorHint"
+                    android:textSize="13sp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_del"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:id="@+id/iv_del"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/clean_edit"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_search"
+                style="@style/BottomBlueBtnStyle"
+                android:layout_width="70dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/select_friends_search"
+                android:textSize="13sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginHorizontal="10dp">
+            <com.shendun.renter.widget.tablayout.CloudTabLayout
+                android:id="@+id/tb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_F7F7F7"
+                app:cloud_indicator_color="@color/theme_blue"
+                app:cloud_indicator_gravity="BOTTOM"
+                app:cloud_indicator_height="2dp"
+                app:cloud_indicator_width="29dp"
+                app:cloud_indicator_style="NORMAL"
+                app:cloud_tab_space_equal="true"
+                app:cloud_tab_padding="2dp"
+                app:cloud_textBold="SELECT"
+                app:cloud_textSelectColor="@color/theme_blue"
+                app:cloud_textSelectSize="14sp"
+                app:cloud_textSize="13sp"
+                app:cloud_textUnselectColor="@color/cloud_light_dark"
+                app:layout_constraintStart_toStartOf="parent" />
+        </RelativeLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</layout>

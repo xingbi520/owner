@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/room"
+        android:contentDescription="@string/title_room"
+        android:icon="@drawable/zhwj_room"
+        android:title="@string/title_room" />
+    <item
+        android:id="@+id/order"
+        android:contentDescription="@string/title_order"
+        android:icon="@drawable/zhwj_order"
+        android:title="@string/title_order" />
+    <item
+        android:id="@+id/me"
+        android:contentDescription="@string/title_me"
+        android:icon="@drawable/zhwj_me"
+        android:title="@string/title_me" />
+</menu>

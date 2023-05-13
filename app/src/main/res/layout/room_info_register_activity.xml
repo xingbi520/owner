@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_green_changing"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <com.shendun.topbar.widget.TopBar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:centerText="@string/add_room_add_person"
+            app:centerTextColor="#333"
+            app:centerTextSize="20sp"
+            app:centerType="textView"
+            app:leftType="imageButton"
+            app:rightTextColor="#008aff"
+            app:rightTextSize="15sp"
+            app:rightType="textView" />
+
+        <ScrollView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="#FFF"
+                app:cardElevation="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp">
+
+                    <include
+                        android:id="@+id/ll_room_no"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_name"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_idcard"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_phone"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_in_date"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_in_time"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_leave_day"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_leave_date"
+                        layout="@layout/item_room_register"/>
+
+                    <include
+                        android:id="@+id/ll_leave_time"
+                        layout="@layout/item_room_register"/>
+
+                    <Button
+                        android:id="@+id/bt_login_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_login_submit"
+                        android:elevation="0dp"
+                        android:outlineProvider="none"
+                        android:text="@string/login"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        tools:targetApi="lollipop" />
+                </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+</LinearLayout>
+</layout>

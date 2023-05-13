@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fragmentRoomNames">
+        <item>全部房间</item>
+        <item>房态图</item>
+        <item>待入住</item>
+        <item>已入住</item>
+        <item>辖区查询</item>
+    </string-array>
+
+    <string-array name="fragmentOrderNames">
+        <item>全部</item>
+        <item>待入住</item>
+        <item>已入住</item>
+        <item>已退房</item>
+    </string-array>
+
+    <string-array name="fragmentHomeCloudNames">
+        <item>家庭云动态</item>
+        <item>文件</item>
+    </string-array>
+
+    <string-array name="fragmentShareCloudNames">
+        <item>第三方分享</item>
+        <item>飞传分享</item>
+    </string-array>
+
+    <string-array name="fragmentTransferNames">
+        <item>上传中</item>
+        <item>上传完成</item>
+        <item>下载中</item>
+        <item>下载完成</item>
+    </string-array>
+
+    <string-array name="fragmentOperateTabs">
+        <item>所有文件</item>
+        <item>照片</item>
+        <item>视频</item>
+        <item>音乐</item>
+        <item>文档</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="spinnerMenu">
+        <item>上传文件</item>
+        <item>创建文件夹</item>
+    </string-array>
+    <string-array name="shareManageTabs">
+        <item>第三方分享</item>
+        <item>飞传接收站</item>
+    </string-array>
+
+    <item name="edit_pannel_top" type="id" />
+    <item name="edit_pannel_bottom" type="id" />
+    <string-array name="flyPassShareTabs">
+        <item>家庭成员</item>
+        <item>手机号</item>
+    </string-array>
+
+    <string-array name="searchCloudNames">
+        <item>家庭云</item>
+        <item>个人云</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="minorOrNo">
+        <item>成年人</item>
+        <item>未成年人</item>
+    </string-array>
+
+    <string-array name="babyOrNo">
+        <item>不携带婴幼儿</item>
+        <item>携带婴幼儿</item>
+    </string-array>
+
+    <string-array name="minorSusp">
+        <item>不可疑</item>
+        <item>可疑</item>
+    </string-array>
+
+    <string-array name="cohaOrNo">
+        <item>没有同住人</item>
+        <item>有同住人</item>
+    </string-array>
+
+    <string-array name="yesOrNo">
+        <item>否</item>
+        <item>是</item>
+    </string-array>
+
+    <string-array name="InspectioSusp">
+        <item>巡查无异常</item>
+        <item>巡查有异常</item>
+    </string-array>
+
+    <string-array name="cohaRelation">
+        <item>监护人</item>
+        <item>同学</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="guardian">
+        <item>父亲</item>
+        <item>母亲</item>
+        <item>老师</item>
+        <item>其他</item>
+    </string-array>
+</resources>

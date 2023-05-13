@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.opencv"
+    android:versionCode="3300"
+    android:versionName="3.3.0">
+
+</manifest>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginHorizontal="20dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_large_room"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_weight="1"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_large_room"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_radius_5_troke_f2f9ff"
+            android:text="@string/tab_large_room"
+            android:textColor="@color/cloud_theme"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_cheap_room"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_cheap_room"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:gravity="center"
+            android:background="@drawable/shape_radius_5_troke_f2f9ff"
+            android:text="@string/tab_cheap_room"
+            android:textColor="@color/cloud_theme"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_expensive_room"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_expensive_room"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:gravity="center"
+            android:background="@drawable/shape_radius_5_troke_f2f9ff"
+            android:text="@string/tab_expensive_room"
+            android:textColor="@color/cloud_theme"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_single_room"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_single_room"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:gravity="center"
+            android:background="@drawable/shape_radius_5_troke_f2f9ff"
+            android:text="@string/tab_single_room"
+            android:textColor="@color/cloud_theme"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_beauty_room"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_beauty_room"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:gravity="center"
+            android:background="@drawable/shape_radius_5_troke_f2f9ff"
+            android:text="@string/tab_beauty_room"
+            android:textColor="@color/cloud_theme"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag="menu_item">
+
+    <TextView
+        android:id="@+id/menu_item"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:gravity="center"
+        android:textColor="@color/bottom_menu_btn_text_commom_color"
+        android:textSize="18sp"
+        android:background="@drawable/bottom_menu_btn_selector" />
+</LinearLayout>
