@@ -350,7 +350,8 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             mBinding.btnBabyNo.setChecked(true);
         }
 
-        String checkIn = response.getRzsj() + ":00";  //入住时间
+//        String checkIn = response.getRzsj() + ":00";  //入住时间
+        String checkIn = TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));  //入住时间
         String checkOut = response.getTfsj() + ":00"; //预离时间
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         long daySpan = TimeUtils.getTimeSpan(checkOut, checkIn, format, TimeConstants.DAY);
