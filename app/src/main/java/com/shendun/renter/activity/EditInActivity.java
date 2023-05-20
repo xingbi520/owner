@@ -1278,9 +1278,9 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         MenuItem menuItem1 = new MenuItem();
         menuItem1.setText(getString(R.string.photo_from_camera));
         menuItem1.setStyle(MenuItem.MenuItemStyle.COMMON);
-        MenuItem menuItem2 = new MenuItem();
-        menuItem2.setText(getString(R.string.photo_from_album));
-        menuItem2.setStyle(MenuItem.MenuItemStyle.COMMON);
+//        MenuItem menuItem2 = new MenuItem();
+//        menuItem2.setText(getString(R.string.photo_from_album));
+//        menuItem2.setStyle(MenuItem.MenuItemStyle.COMMON);
         menuItem1.setMenuItemOnClickListener(
                 new MenuItemOnClickListener(bottomMenuFragment, menuItem1) {
                     @Override
@@ -1288,15 +1288,15 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
                         takePhotoClick();
                     }
                 });
-        menuItem2.setMenuItemOnClickListener(
-                new MenuItemOnClickListener(bottomMenuFragment, menuItem2) {
-                    @Override
-                    public void onClickMenuItem(android.view.View v, MenuItem menuItem) {
-                        openAlbumClick();
-                    }
-                });
+//        menuItem2.setMenuItemOnClickListener(
+//                new MenuItemOnClickListener(bottomMenuFragment, menuItem2) {
+//                    @Override
+//                    public void onClickMenuItem(android.view.View v, MenuItem menuItem) {
+//                        openAlbumClick();
+//                    }
+//                });
         menuItemList.add(menuItem1);
-        menuItemList.add(menuItem2);
+//        menuItemList.add(menuItem2);
         bottomMenuFragment.setMenuItems(menuItemList);
         bottomMenuFragment.show(getSupportFragmentManager(), "BottomMenuFragment");
     }
