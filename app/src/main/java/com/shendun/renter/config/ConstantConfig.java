@@ -12,4 +12,7 @@ public class ConstantConfig {
     //I(大写的i)表示新增，U表示更新
     public static final String ORDER_ADD = "I";
     public static final String ORDER_UADATE = "U";
+
+    public static final int DAY_MAX = 7;
+    public static final int DAY_MIN = 1;
 }

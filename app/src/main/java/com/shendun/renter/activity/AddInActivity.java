@@ -275,7 +275,7 @@ public class AddInActivity extends BaseActivity<ActivityAddOccupantBinding>
             showInspectioSuspPop();
         } else if(v == mBinding.btnPortraitScene){
             takePhotoClick();
-        } else if(v == mBinding.llInDate || v == mBinding.llOutDate){
+        } else if(v == mBinding.llInDate){
             DatePicker picker = new DatePicker(this);
             picker.setBodyWidth(300);
             picker.getWheelLayout().setDateMode(DateMode.YEAR_MONTH_DAY);

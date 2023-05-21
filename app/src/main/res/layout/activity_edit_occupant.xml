@@ -1006,9 +1006,9 @@
             android:text="直接入住"
             android:textColor="@color/white"
             android:textSize="18sp"
-            tools:targetApi="lollipop"
             app:layout_constraintBottom_toBottomOf="@id/bt_ok"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/bt_ok"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:targetApi="lollipop" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -350,8 +350,11 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             mBinding.btnBabyNo.setChecked(true);
         }
 
-//        String checkIn = response.getRzsj() + ":00";  //入住时间
-        String checkIn = TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));  //入住时间
+        String checkIn = response.getRzsj() + ":00";  //入住时间
+        //预订修改使用当前时间
+        if(ConstantConfig.ORDER_ADD.equals(mPersonStatus)){
+            checkIn = TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));  //入住时间
+        }
         String checkOut = response.getTfsj() + ":00"; //预离时间
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         long daySpan = TimeUtils.getTimeSpan(checkOut, checkIn, format, TimeConstants.DAY);
@@ -422,7 +425,7 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             showInspectioSuspPop();
         } else if(v == mBinding.btnPortraitScene){
             showChooseSheet();
-        } else if(v == mBinding.llOutDate){
+        } /*else if(v == mBinding.llOutDate){
             DatePicker picker = new DatePicker(this);
             picker.setBodyWidth(300);
             picker.getWheelLayout().setDateMode(DateMode.YEAR_MONTH_DAY);
@@ -485,7 +488,7 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
                 }
             });
             picker.show();
-        } else if(v == mBinding.llOutTime){
+        }*/ else if(v == mBinding.llOutTime){
             TimePicker picker = new TimePicker(this);
             picker.getWheelLayout().setTimeMode(TimeMode.HOUR_24_NO_SECOND);
             picker.getTitleView().setTextSize(ScreenUtil.dp2px(mContext, 6));
@@ -562,7 +565,19 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
                     return item.toString() + "天";
                 }
             });
-            picker.setRange(1, 7, 1);
+            if(ConstantConfig.ORDER_ADD.equals(mPersonStatus)){
+                picker.setRange(ConstantConfig.DAY_MIN, ConstantConfig.DAY_MAX, 1);
+            } else if(ConstantConfig.ORDER_UADATE.equals(mPersonStatus)){
+                if(mDay > -1){
+                    if(ConstantConfig.DAY_MAX == mDay){
+                        picker.setRange(0, ConstantConfig.DAY_MAX - mDay, 1);
+                    } else {
+                        picker.setRange(ConstantConfig.DAY_MIN, ConstantConfig.DAY_MAX - mDay, 1);
+                    }
+                } else {
+                    picker.setRange(ConstantConfig.DAY_MIN, ConstantConfig.DAY_MAX, 1);
+                }
+            }
             picker.setDefaultValue(mDay);
             picker.getTitleView().setText("入住天数");
             picker.show();

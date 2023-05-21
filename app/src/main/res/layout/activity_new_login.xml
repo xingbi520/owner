@@ -177,6 +177,7 @@
                 android:id="@+id/tv_bottom_right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:gravity="center_horizontal"
                 android:text="江苏省南通市公安局.技术支持"
                 android:textColor="@color/main_gray"

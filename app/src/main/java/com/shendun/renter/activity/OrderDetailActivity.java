@@ -90,19 +90,6 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
         mPhone = DataHelper.getStringSF(mContext, SpConfig.KEY_PHONE_NUMBER);
         mOrder = getIntent().getStringExtra(SpConfig.KEY_ORDER_NUMBER);
         mOrderStatus = getIntent().getStringExtra(SpConfig.KEY_ORDER_STATUS);
-
-        if(null != mOrderStatus && !TextUtils.isEmpty(mOrderStatus)){
-            if(Constants.ROOM_ORDER_READY.equals(mOrderStatus)){
-                mBinding.btModify.setText("预定修改");
-                mBinding.btModify.setVisibility(View.VISIBLE);
-                mBinding.btCohabitant.setVisibility(View.GONE);
-            }
-            if(Constants.ROOM_ORDER_CHECK_IN.equals(mOrderStatus)){
-                mBinding.btModify.setText("续住修改");
-                mBinding.btModify.setVisibility(View.VISIBLE);
-                mBinding.btCohabitant.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     private void initRecyclerView() {
@@ -150,11 +137,12 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                             mBinding.llOrder.tvRoomFloor.setText("楼层:" + result.getData().getFjlc());
                             mBinding.llOrder.tvRoomStyle.setText("房型:" + result.getData().getFjlx());
                             mBinding.llOrder.tvRoomAddress.setText(result.getData().getFwmc() + result.getData().getDh() + "栋");
-                            String roomStatus = result.getData().getZt();
-                            if(!TextUtils.isEmpty(roomStatus)){
-                                if(Constants.ROOM_ORDER_READY.equals(roomStatus)){
+                            mOrderStatus = result.getData().getZt();
+                            setOrderStatus();
+                            if(!TextUtils.isEmpty(mOrderStatus)){
+                                if(Constants.ROOM_ORDER_READY.equals(mOrderStatus)){
                                     mBinding.llOrder.tvOutTimeSub.setText(R.string.room_pre_time);
-                                } else if(Constants.ROOM_ORDER_CHECK_IN.equals(roomStatus)){
+                                } else if(Constants.ROOM_ORDER_CHECK_IN.equals(mOrderStatus)){
                                     mBinding.llOrder.tvOutTimeSub.setText(R.string.room_pre_time);
                                 } else {
                                     mBinding.llOrder.tvOutTimeSub.setText(R.string.room_out_time);
@@ -237,11 +225,34 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                         }
                     });
         } else if(v == mBinding.btModify){
-            //预定修改
-            JumpToEditInActivity(true);
+            if(null != mOrderStatus && !TextUtils.isEmpty(mOrderStatus)){
+                if(Constants.ROOM_ORDER_READY.equals(mOrderStatus)){
+                    //预定修改
+                    JumpToEditInActivity(true);
+                }
+                if(Constants.ROOM_ORDER_CHECK_IN.equals(mOrderStatus)){
+                    //续住修改
+                    JumpToEditInActivity(false);
+                }
+            }
         } else if(v == mBinding.btCohabitant){
             //增加同住人
             JumpToCohaInActivity(true);
+        }
+    }
+
+    private void setOrderStatus(){
+        if(null != mOrderStatus && !TextUtils.isEmpty(mOrderStatus)){
+            if(Constants.ROOM_ORDER_READY.equals(mOrderStatus)){
+                mBinding.btModify.setText("预定修改");
+                mBinding.btModify.setVisibility(View.VISIBLE);
+                mBinding.btCohabitant.setVisibility(View.GONE);
+            }
+            if(Constants.ROOM_ORDER_CHECK_IN.equals(mOrderStatus)){
+                mBinding.btModify.setText("续住修改");
+                mBinding.btModify.setVisibility(View.VISIBLE);
+                mBinding.btCohabitant.setVisibility(View.VISIBLE);
+            }
         }
     }
 
