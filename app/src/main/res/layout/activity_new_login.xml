@@ -177,9 +177,8 @@
                 android:id="@+id/tv_bottom_right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:gravity="center_horizontal"
-                android:text="江苏省南通市公安局.技术支持"
+                android:text="版权所有：南通市公安局"
                 android:textColor="@color/main_gray"
                 android:textSize="13sp" />
 
@@ -189,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_bottom_right"
                 android:gravity="center_horizontal"
-                android:text="南通神盾科技.技术支持"
+                android:text="技术支持：南通神盾科技"
                 android:textColor="@color/main_gray"
                 android:textSize="13sp" />
 
@@ -199,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_bottom_title"
                 android:gravity="center_horizontal"
-                android:text="Copyright@2020 JsNt.sdsoft(QQ:800056978)ALL \nRights Reserved"
+                android:text="Copyright@2023 JsNt.sdsoft(QQ:800056978)ALL \nRights Reserved"
                 android:textColor="@color/main_gray"
                 android:textSize="13sp" />
         </RelativeLayout>
