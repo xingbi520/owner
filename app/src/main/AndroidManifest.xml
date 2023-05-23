@@ -28,9 +28,9 @@
     <application
         android:name="com.shendun.renter.app.RenterApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/jinghui"
         android:label="@string/short_cut_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/jinghui"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
