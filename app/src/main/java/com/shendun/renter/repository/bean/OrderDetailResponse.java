@@ -41,6 +41,9 @@ public class OrderDetailResponse implements Serializable {
     private String g_is_patrol_error;
     private String g_patrol_happening;
     private String bz;
+    private String s_type;
+    private String bt_zt;
+    private String dd_password;
     private String Recordcount;
     private String Currpage;
 
@@ -324,6 +327,30 @@ public class OrderDetailResponse implements Serializable {
 
     public void setBz(String bz) {
         this.bz = bz;
+    }
+
+    public String getS_type() {
+        return s_type;
+    }
+
+    public void setS_type(String s_type) {
+        this.s_type = s_type;
+    }
+
+    public String getBt_zt() {
+        return bt_zt;
+    }
+
+    public void setBt_zt(String bt_zt) {
+        this.bt_zt = bt_zt;
+    }
+
+    public String getDd_password() {
+        return dd_password;
+    }
+
+    public void setDd_password(String dd_password) {
+        this.dd_password = dd_password;
     }
 
     public String getRecordcount() {

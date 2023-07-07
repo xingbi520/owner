@@ -598,8 +598,9 @@
     <string name="no">否</string>
 
     <string name="reset_pwd">更新密码</string>
-    <string name="reset_shendun_pwd">更新锁密码</string>
+    <string name="reset_shendun_pwd">获取密码</string>
     <string name="can_not_null_pwd">开门密码不能为空</string>
+    <string name="bt_switch">授权蓝牙开关</string>
     <string name="modify">修改</string>
     <string name="action_add">新增</string>
     <string name="cohabitant">同住人</string>

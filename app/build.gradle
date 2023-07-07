@@ -127,6 +127,7 @@ dependencies {
   implementation project(path: ':loading_dialog')
   implementation project(path: ':snackbar')
   implementation project(path: ':openCVLibrary330')
+  implementation project(path: ':Orient-Ui')
 }
 
 tasks.withType(JavaCompile) {

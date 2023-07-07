@@ -2,12 +2,14 @@ package com.shendun.renter.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orient.me.widget.sw.MultiSwitchListener;
 import com.shendun.architecture.base.BaseActivity;
 import com.shendun.architecture.net.RepositorySubscriber;
 import com.shendun.architecture.utils.DataHelper;
@@ -22,9 +24,8 @@ import com.shendun.renter.fragment.adapter.PersonAdapter;
 import com.shendun.renter.repository.NetService;
 import com.shendun.renter.repository.bean.GetLockPwd;
 import com.shendun.renter.repository.bean.GetLockPwdResponse;
-import com.shendun.renter.repository.bean.OrderResponse;
 import com.shendun.renter.repository.bean.ResponseBean;
-import com.shendun.renter.repository.bean.UploadLockPwd;
+import com.shendun.renter.repository.bean.UploadLockBtPwd;
 import com.shendun.renter.repository.bean.OrderDetailRequest;
 import com.shendun.renter.repository.bean.OrderDetailResponse;
 import com.shendun.renter.repository.bean.UserInfo;
@@ -35,15 +36,19 @@ import com.shendun.renter.repository.bean.OrderDetailResponse.ListBean;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 /*
  * 订单详情页
  */
 public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding>
     implements View.OnClickListener {
+    private final String TAG = OrderDetailActivity.class.getSimpleName();
 
     private String mPhone;
     private String mOrder;
     private String mOrderStatus;
+    private UserInfo mUserInfo;
 
     private OrderDetailResponse mOrderDetailResponse;
 
@@ -51,6 +56,8 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
 
     private static final String GET_PWD = "1";
     private static final String UPLOAD_PWD = "2";
+    private static final String SET_PWD = "1";    //密码设置
+    private static final String SET_BT = "2";     //蓝牙功能是否开启设置
 
     @Override
     protected int getLayoutId() {
@@ -90,6 +97,27 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
         mPhone = DataHelper.getStringSF(mContext, SpConfig.KEY_PHONE_NUMBER);
         mOrder = getIntent().getStringExtra(SpConfig.KEY_ORDER_NUMBER);
         mOrderStatus = getIntent().getStringExtra(SpConfig.KEY_ORDER_STATUS);
+
+        mBinding.msCheck.setItemsArray(new String[]{"开", "关"});
+        mBinding.msCheck.setMultiSwitchListener(new MultiSwitchListener() {
+            @Override
+            public void onPositionSelected(int pos) {
+                Timber.tag(TAG).d("位置:" + pos);
+                setBt((0 == pos) ? "1" : "0");
+            }
+
+            @Override
+            public void onPositionOffsetPercent(int pos, float percent) {
+                Timber.tag(TAG).d("位置:" + pos + ",百分比：" + percent);
+            }
+        });
+
+        mUserInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
+        if(null != mUserInfo && mUserInfo.pwdVisible()){
+            setPwdVisible(true);
+        } else {
+            setPwdVisible(false);
+        }
     }
 
     private void initRecyclerView() {
@@ -117,14 +145,12 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
         if(TextUtils.isEmpty(mOrder))
             return;
 
-        UserInfo userInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
-        if(null == userInfo){
+        if(null == mUserInfo)
             return;
-        }
 
         OrderDetailRequest request = new OrderDetailRequest();
-        request.setCybh(userInfo.getCybh());
-        request.setDwbh(userInfo.getDwbh());
+        request.setCybh(mUserInfo.getCybh());
+        request.setDwbh(mUserInfo.getDwbh());
         request.setJlbh(mOrder);
         getRepository(NetService.class).getOrderDetail(UrlConfig.FD_DDXX, request.getRequestBody())
                 .compose(dispatchSchedulers(false))
@@ -151,6 +177,31 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
 
                             mBinding.llOrder.tvInTime.setText(result.getData().getRzsj());
                             mBinding.llOrder.tvOutTime.setText(result.getData().getTfsj());
+                            mBinding.etContent.setText(result.getData().getDd_password());
+                            //设置密码/蓝牙显示状态
+                            String sType = result.getData().getS_type();
+                            if(null == sType || TextUtils.isEmpty(sType)){
+                                setPwdVisible(false);
+                            } else {
+                                setPwdVisible(true);
+                                if("2".equals(sType)){
+                                    //显示蓝牙设置功能
+                                    mBinding.clBt.setVisibility(View.VISIBLE);
+                                } else {
+                                    //隐藏蓝牙设置功能
+                                    mBinding.clBt.setVisibility(View.GONE);
+                                }
+                            }
+                            //设置蓝牙开启/关闭状态
+                            String btZt = result.getData().getBt_zt();
+                            if(null != btZt && !TextUtils.isEmpty(btZt)
+                            && "1".equals(btZt)){
+                                //蓝牙开启
+                                mBinding.msCheck.setCurrentItem(0);
+                            } else {
+                                //蓝牙关闭
+                                mBinding.msCheck.setCurrentItem(1);
+                            }
 
                             List<OrderDetailResponse.ListBean> list = result.getData().getList();
                             if (!list.isEmpty()) {
@@ -173,8 +224,6 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                         super.onError(t);
                     }
                 });
-
-        fdPassword(GET_PWD, "");
     }
 
     @Override
@@ -198,7 +247,7 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                 showCenterToast(getString(R.string.can_not_null_pwd));
                 return;
             }
-            fdPassword(UPLOAD_PWD, pwd);
+            setPassword(pwd);
         } else if(v == mBinding.btResetShendunPwd){
             GetLockPwd request = new GetLockPwd();
             request.setPtype(Constants.LOCK_GET_PASSWORD);//2、表示获取门锁密码
@@ -212,7 +261,8 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                         @Override
                         protected void onResponse(ResponseBean<GetLockPwdResponse> result) {
                             if (result.isSuccessful()) {
-                                fdPassword(UPLOAD_PWD, result.getData().getDdmm());
+                                mBinding.etContent.setText(result.getData().getDdmm());
+                                setPassword(result.getData().getDdmm());
                             } else {
                                 if(!TextUtils.isEmpty(result.getMessage()))
                                     showCenterToast(result.getMessage());
@@ -310,35 +360,29 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
     }
 
     /**
-     * 获取/更新密码
+     * 更新密码
      */
-    private void fdPassword(final String fdpwd, final String pwd){
-        if(TextUtils.isEmpty(mOrder) || null == fdpwd || TextUtils.isEmpty(fdpwd))
+    private void setPassword(final String pwd){
+        if(TextUtils.isEmpty(mOrder))
             return;
 
-        UserInfo userInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
-        if(null == userInfo){
+        if(null == mUserInfo)
             return;
-        }
 
-        UploadLockPwd request = new UploadLockPwd();
-        request.setCybh(userInfo.getCybh());
-        request.setDwbh(userInfo.getDwbh());
+        UploadLockBtPwd request = new UploadLockBtPwd();
+        request.setCybh(mUserInfo.getCybh());
+        request.setDwbh(mUserInfo.getDwbh());
         request.setJlbh(mOrder);
-        request.setZt(fdpwd);   //1获取密码;2更新密码
-        request.setPassword(pwd);
-        getRepository(NetService.class).uploadPassword(UrlConfig.FD_DD_PASSWORD, request.getRequestBody())
+        request.setCtype(SET_PWD);
+        request.setCvalue(pwd);
+        request.setZt("");
+        getRepository(NetService.class).uploadPassword(UrlConfig.FD_DD_CONFIG, request.getRequestBody())
                 .compose(dispatchSchedulers(false))
                 .subscribe(new RepositorySubscriber<ResponseBean<GetLockPwdResponse>>() {
                     @Override
                     protected void onResponse(ResponseBean<GetLockPwdResponse> result) {
-                        if(GET_PWD.equals(fdpwd)){
-                            if(result.isSuccessful())
-                                mBinding.etContent.setText(result.getData().getDdmm());
-                        } else {
-                            if(!TextUtils.isEmpty(result.getMessage())){
-                                showCenterToast(result.getMessage());
-                            }
+                        if(!TextUtils.isEmpty(result.getMessage())){
+                            showCenterToast(result.getMessage());
                         }
                     }
 
@@ -347,5 +391,44 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                         super.onError(t);
                     }
                 });
+    }
+
+    /**
+     * 设置蓝牙
+     */
+    private void setBt(final String zt){
+        if(TextUtils.isEmpty(mOrder))
+            return;
+
+        if(null == mUserInfo)
+            return;
+
+        UploadLockBtPwd request = new UploadLockBtPwd();
+        request.setCybh(mUserInfo.getCybh());
+        request.setDwbh(mUserInfo.getDwbh());
+        request.setJlbh(mOrder);
+        request.setCtype(SET_BT);
+        request.setCvalue("");
+        request.setZt(zt);
+        getRepository(NetService.class).uploadPassword(UrlConfig.FD_DD_CONFIG, request.getRequestBody())
+                .compose(dispatchSchedulers(false))
+                .subscribe(new RepositorySubscriber<ResponseBean<GetLockPwdResponse>>() {
+                    @Override
+                    protected void onResponse(ResponseBean<GetLockPwdResponse> result) {
+                        if(!TextUtils.isEmpty(result.getMessage())){
+                            showCenterToast(result.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable t) {
+                        super.onError(t);
+                    }
+                });
+    }
+
+    private void setPwdVisible(boolean visible){
+        mBinding.etContent.setVisibility(visible ? View.VISIBLE : View.GONE);
+        mBinding.btResetShendunPwd.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 }

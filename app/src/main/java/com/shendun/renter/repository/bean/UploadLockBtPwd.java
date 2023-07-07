@@ -8,13 +8,14 @@ import java.io.Serializable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class UploadLockPwd implements Serializable {
+public class UploadLockBtPwd implements Serializable {
 
     private String cybh;
     private String dwbh;
     private String jlbh;
+    private String ctype;
+    private String cvalue;
     private String zt;
-    private String password;
 
     public String getCybh() {
         return cybh;
@@ -40,6 +41,22 @@ public class UploadLockPwd implements Serializable {
         this.jlbh = jlbh;
     }
 
+    public String getCtype() {
+        return ctype;
+    }
+
+    public void setCtype(String ctype) {
+        this.ctype = ctype;
+    }
+
+    public String getCvalue() {
+        return cvalue;
+    }
+
+    public void setCvalue(String cvalue) {
+        this.cvalue = cvalue;
+    }
+
     public String getZt() {
         return zt;
     }
@@ -48,22 +65,15 @@ public class UploadLockPwd implements Serializable {
         this.zt = zt;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     protected String getJsonStr() {
         JSONObject json = new JSONObject();
         try {
             json.put("cybh", cybh);
             json.put("dwbh", dwbh);
             json.put("jlbh", jlbh);
+            json.put("ctype", ctype);
+            json.put("cvalue", cvalue);
             json.put("zt", zt);
-            json.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }

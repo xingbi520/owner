@@ -31,7 +31,6 @@ import com.shendun.renter.repository.bean.ResponseBean;
 import com.shendun.renter.repository.bean.Room;
 import com.shendun.renter.repository.bean.RoomRequest;
 import com.shendun.renter.repository.bean.RoomResponse;
-import com.shendun.renter.repository.bean.UploadLockPwd;
 import com.shendun.renter.repository.bean.UserInfo;
 import com.shendun.renter.utils.CacheManager;
 import com.shendun.renter.utils.ScreenUtil;

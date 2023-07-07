@@ -1,2 +1,2 @@
-include ':app', ':topbar',':loading_dialog',':snackbar',':openCVLibrary330'
+include ':app', ':topbar',':loading_dialog',':snackbar',':openCVLibrary330',':Orient-Ui'
 rootProject.name = "CloudLibrary"

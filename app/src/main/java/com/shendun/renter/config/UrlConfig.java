@@ -19,6 +19,7 @@ public class UrlConfig {
     public static final String ZK_RZHY = "zk_rzhy";                    //实人核验
     public static final String GET_PLATFROM = "get_platfrom";          //获取网约房平台名单代码
     public static final String FD_DD_PASSWORD = "fd_dd_password";      //上传房间密码
+    public static final String FD_DD_CONFIG = "fd_dd_config";          //上传房间密码和蓝牙设置开关
     public static final String SDLOCK = "sdlock";                      //获得神盾门锁密码
     public static final String APP_UPDATE = "app_update";              //APP更新
 }
