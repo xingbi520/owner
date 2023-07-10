@@ -81,6 +81,7 @@
     <color name="color_49C5A7">#49C5A7</color>
     <color name="color_cc0000">#cc0000</color>
     <color name="color_ff0000">#ff0000</color>
+    <color name="color_cccccc">#cccccc</color>
 
     <color name="color_fff2f9ff">#fff2f9ff</color>
     <color name="color_ffeef7ff">#ffeef7ff</color>
@@ -92,4 +93,21 @@
     <color name="bottom_menu_btn_text_press_colot">#3F51B5</color>
     <color name="bottom_menu_btn_text_stress_color">#FF0000</color>
     <color name="bottom_menu_layout_color">#00000000</color>
+
+    <!--5%透明度-->
+    <color name="color_000000_alpha_5">#0d000000</color>
+    <color name="color_ff3a2f_alpha_5">#0dff3a2f</color>
+
+    <!--10%透明度-->
+    <color name="color_000000_alpha_10">#1a000000</color>
+    <color name="color_008aff_alpha_10">#1a008aff</color>
+    <color name="color_ffffff_alpha_10">#1affffff</color>
+
+    <!--50%透明度-->
+    <color name="color_008aff_alpha_50">#80008aff</color>
+    <color name="color_1a99a2ff_alpha_50">#8099A2FF</color>
+    <color name="color_cccccc_alpha_50">#80CCCCCC</color>
+
+    <!--70%透明度-->
+    <color name="color_ffffff_alpha_70">#4cffffff</color>
 </resources>

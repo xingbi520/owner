@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -93,24 +94,11 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
         mBinding.btResetShendunPwd.setOnClickListener(this);
         mBinding.btModify.setOnClickListener(this);
         mBinding.btCohabitant.setOnClickListener(this);
+        mBinding.scBt.setOnClickListener(this);
 
         mPhone = DataHelper.getStringSF(mContext, SpConfig.KEY_PHONE_NUMBER);
         mOrder = getIntent().getStringExtra(SpConfig.KEY_ORDER_NUMBER);
         mOrderStatus = getIntent().getStringExtra(SpConfig.KEY_ORDER_STATUS);
-
-        mBinding.msCheck.setItemsArray(new String[]{"开", "关"});
-        mBinding.msCheck.setMultiSwitchListener(new MultiSwitchListener() {
-            @Override
-            public void onPositionSelected(int pos) {
-                Timber.tag(TAG).d("位置:" + pos);
-                setBt((0 == pos) ? "1" : "0");
-            }
-
-            @Override
-            public void onPositionOffsetPercent(int pos, float percent) {
-                Timber.tag(TAG).d("位置:" + pos + ",百分比：" + percent);
-            }
-        });
 
         mUserInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
         if(null != mUserInfo && mUserInfo.pwdVisible()){
@@ -197,10 +185,12 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                             if(null != btZt && !TextUtils.isEmpty(btZt)
                             && "1".equals(btZt)){
                                 //蓝牙开启
-                                mBinding.msCheck.setCurrentItem(0);
+                                mBinding.scBt.setChecked(true);
+//                                mBinding.msCheck.setCurrentItem(0);
                             } else {
                                 //蓝牙关闭
-                                mBinding.msCheck.setCurrentItem(1);
+                                mBinding.scBt.setChecked(false);
+//                                mBinding.msCheck.setCurrentItem(1);
                             }
 
                             List<OrderDetailResponse.ListBean> list = result.getData().getList();
@@ -274,6 +264,15 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                             super.onError(t);
                         }
                     });
+        } else if(v == mBinding.scBt){
+            SwitchCompat switchCompat = (SwitchCompat) v;
+            if (switchCompat.isChecked()) {
+                //开启蓝牙
+                setBt("1");
+            } else {
+                //关闭蓝牙
+                setBt("0");
+            }
         } else if(v == mBinding.btModify){
             if(null != mOrderStatus && !TextUtils.isEmpty(mOrderStatus)){
                 if(Constants.ROOM_ORDER_READY.equals(mOrderStatus)){

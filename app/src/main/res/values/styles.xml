@@ -357,4 +357,11 @@
         <item name="android:windowEnterAnimation">@anim/menu_appear</item>
         <item name="android:windowExitAnimation">@anim/menu_disappear</item>
     </style>
+
+    <style name="UiComponents.Switch.Style1" parent="Base.Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:thumb">@drawable/uicomponents_switch_thumb</item>
+        <item name="track">@drawable/uicomponents_switch_track</item>
+    </style>
 </resources>

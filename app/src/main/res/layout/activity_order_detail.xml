@@ -100,13 +100,24 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:background="@null"
+                    style="@style/UiComponents.Switch.Style1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <com.orient.me.widget.sw.MultiSwitch
                     android:id="@+id/ms_check"
                     android:layout_width="80dp"
                     android:layout_height="40dp"
+                    android:visibility="gone"
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="center"
-                    app:msBackgroundColor="@color/theme_blue"
+                    app:msBackgroundColor="@color/white"
                     app:msTextSize="16sp"
                     app:msNormalTextColor="@color/theme_blue"
                     app:msShape="oval"
