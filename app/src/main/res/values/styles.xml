@@ -363,5 +363,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:thumb">@drawable/uicomponents_switch_thumb</item>
         <item name="track">@drawable/uicomponents_switch_track</item>
+        <item name="colorControlActivated">@color/color_0085ff</item>
+        <item name="colorSwitchThumbNormal">@color/color_0085ff</item>
+        <item name="android:colorForeground">@color/color_0085ff</item>
+    </style>
+
+    <style name="switch_text">
+        <item name="android:textColor">@color/color_0085ff</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
