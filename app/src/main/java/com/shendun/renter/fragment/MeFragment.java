@@ -7,6 +7,7 @@ import android.view.View;
 import com.blankj.utilcode.util.LogUtils;
 import com.shendun.architecture.base.BaseFragment;
 import com.shendun.architecture.utils.DataHelper;
+import com.shendun.architecture.utils.DeviceUtils;
 import com.shendun.renter.R;
 import com.shendun.renter.activity.LoginActivity;
 import com.shendun.renter.activity.MainActivity;
@@ -43,6 +44,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
             mBinding.tvFrPhone.setText("法人电话:" + userInfo.getFrlxdh());
             mBinding.tvFrYyzz.setText("信用代码:" + userInfo.getYyzz());
         }
+
+        mBinding.tvVersion.setText("版本:" + DeviceUtils.getVersionName(mContext));
 
         mBinding.clCompanyInfo.setOnClickListener(this);
         mBinding.clOrder.setOnClickListener(this);
