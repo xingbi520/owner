@@ -193,6 +193,15 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
 //                                mBinding.msCheck.setCurrentItem(1);
                             }
 
+                            //订单状态为已入住时，显示密码/蓝牙，其他状态隐藏
+                            if(Constants.ROOM_ORDER_CHECK_IN.equals(mOrderStatus)){
+                                setPwdVisible(true);
+                                mBinding.clBt.setVisibility(View.VISIBLE);
+                            } else {
+                                setPwdVisible(false);
+                                mBinding.clBt.setVisibility(View.GONE);
+                            }
+
                             List<OrderDetailResponse.ListBean> list = result.getData().getList();
                             if (!list.isEmpty()) {
                                 String num = String.format(mContext.getString(R.string.check_in_num), list.size());
