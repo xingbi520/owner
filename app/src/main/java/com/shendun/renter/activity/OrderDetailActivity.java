@@ -101,11 +101,6 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
         mOrderStatus = getIntent().getStringExtra(SpConfig.KEY_ORDER_STATUS);
 
         mUserInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
-        if(null != mUserInfo && mUserInfo.pwdVisible()){
-            setPwdVisible(true);
-        } else {
-            setPwdVisible(false);
-        }
     }
 
     private void initRecyclerView() {
@@ -200,6 +195,12 @@ public class OrderDetailActivity extends BaseActivity<ActivityOrderDetailBinding
                             } else {
                                 setPwdVisible(false);
                                 mBinding.clBt.setVisibility(View.GONE);
+                            }
+                            //密码显示/隐藏总开关
+                            if(null != mUserInfo && mUserInfo.pwdVisible()){
+                                setPwdVisible(true);
+                            } else {
+                                setPwdVisible(false);
                             }
 
                             List<OrderDetailResponse.ListBean> list = result.getData().getList();
