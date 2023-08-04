@@ -128,6 +128,7 @@ dependencies {
   implementation project(path: ':snackbar')
   implementation project(path: ':openCVLibrary330')
   implementation project(path: ':Orient-Ui')
+  implementation project(path: ':xqrcode-lib')
 }
 
 tasks.withType(JavaCompile) {

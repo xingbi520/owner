@@ -1,48 +1,42 @@
 package com.shendun.renter.activity;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shendun.architecture.base.BaseActivity;
 import com.shendun.architecture.net.RepositorySubscriber;
-import com.shendun.architecture.utils.DataHelper;
 import com.shendun.renter.R;
 import com.shendun.renter.bean.Constants;
 import com.shendun.renter.config.ConstantConfig;
-import com.shendun.renter.config.ParamConfig;
 import com.shendun.renter.config.SpConfig;
 import com.shendun.renter.config.UrlConfig;
-import com.shendun.renter.databinding.ActivityOrderDetailBinding;
 import com.shendun.renter.databinding.ActivityRoomDetailBinding;
-import com.shendun.renter.fragment.adapter.PersonAdapter;
 import com.shendun.renter.repository.NetService;
-import com.shendun.renter.repository.bean.GetLockPwd;
-import com.shendun.renter.repository.bean.GetLockPwdResponse;
-import com.shendun.renter.repository.bean.OrderDetailRequest;
-import com.shendun.renter.repository.bean.OrderDetailResponse;
-import com.shendun.renter.repository.bean.OrderDetailResponse.ListBean;
-import com.shendun.renter.repository.bean.ResponseBean;
 import com.shendun.renter.repository.bean.Room;
 import com.shendun.renter.repository.bean.RoomRequest;
 import com.shendun.renter.repository.bean.RoomResponse;
 import com.shendun.renter.repository.bean.UserInfo;
 import com.shendun.renter.utils.CacheManager;
 import com.shendun.renter.utils.ScreenUtil;
-import com.shendun.renter.widget.layoutmanager.LinearLayoutManagerWrap;
+import com.shendun.renter.xqrcode.CustomCaptureActivity;
+import com.xuexiang.xqrcode.XQRCode;
 
 import java.util.List;
 
 /*
- * 订单详情页
+ * 房间详情页
  */
 public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
     implements View.OnClickListener {
+
+    private static final int REQUEST_QRCODE = 1;
 
     private Room mRoom;
 
@@ -105,6 +99,7 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
             }
         }
 
+        mBinding.llRoom.tvScan.setOnClickListener(this);
         mBinding.llRoom.tvCheckIn.setVisibility(View.GONE);
         mBinding.llRoom.tvCheckIn.setOnClickListener(this);
     }
@@ -153,8 +148,34 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
 
     @Override
     public void onClick(View v) {
-        if (v == mBinding.llRoom.tvCheckIn) {
+        if (v == mBinding.llRoom.tvScan) {
+            CustomCaptureActivity.start(this, REQUEST_QRCODE, R.style.XQRCodeTheme_Custom);
+        }
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_QRCODE){
+            handleScanResult(data);
+        }
+    }
+
+    /**
+     * 处理二维码扫描结果
+     *
+     * @param data
+     */
+    private void handleScanResult(Intent data) {
+        if (data != null) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                if (bundle.getInt(XQRCode.RESULT_TYPE) == XQRCode.RESULT_SUCCESS) {
+                    String result = bundle.getString(XQRCode.RESULT_DATA);
+                     LogUtils.d("Scan content:" + result);
+                }
+            }
         }
     }
 }
