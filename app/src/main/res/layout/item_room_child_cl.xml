@@ -82,7 +82,7 @@
                 android:id="@+id/tv_scan"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:background="@drawable/order_circle_corner"
