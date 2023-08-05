@@ -20,6 +20,8 @@ public class Room implements Serializable{
     private String gname;
     private Object dwdm;
     private Object jgbh;
+    private String mp_base64;
+    private String sam_base64;
 
     public String getFhid() {
         return fhid;
@@ -155,5 +157,21 @@ public class Room implements Serializable{
 
     public void setJgbh(Object jgbh) {
         this.jgbh = jgbh;
+    }
+
+    public String getMp_base64() {
+        return mp_base64;
+    }
+
+    public void setMp_base64(String mp_base64) {
+        this.mp_base64 = mp_base64;
+    }
+
+    public String getSam_base64() {
+        return sam_base64;
+    }
+
+    public void setSam_base64(String sam_base64) {
+        this.sam_base64 = sam_base64;
     }
 }

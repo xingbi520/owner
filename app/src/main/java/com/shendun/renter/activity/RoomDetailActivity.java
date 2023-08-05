@@ -1,6 +1,8 @@
 package com.shendun.renter.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,13 +22,18 @@ import com.shendun.renter.repository.NetService;
 import com.shendun.renter.repository.bean.Room;
 import com.shendun.renter.repository.bean.RoomRequest;
 import com.shendun.renter.repository.bean.RoomResponse;
+import com.shendun.renter.repository.bean.RoomSourceRequest;
+import com.shendun.renter.repository.bean.RoomSourceResponse;
 import com.shendun.renter.repository.bean.UserInfo;
 import com.shendun.renter.utils.CacheManager;
 import com.shendun.renter.utils.ScreenUtil;
 import com.shendun.renter.xqrcode.CustomCaptureActivity;
 import com.xuexiang.xqrcode.XQRCode;
 
+import java.io.IOException;
 import java.util.List;
+
+import Decoder.BASE64Decoder;
 
 /*
  * 房间详情页
@@ -130,6 +137,17 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                                 if (!list.isEmpty()) {
                                     mBinding.tvHouseNo.setText(list.get(0).getMpsn());
                                     mBinding.tvHealthCode.setText(list.get(0).getSam());
+                                    BASE64Decoder decoder = new BASE64Decoder();
+                                    byte[] houseNum = decoder.decodeBuffer(list.get(0).getMp_base64());
+                                    if(houseNum != null && houseNum.length > 0){
+                                        Bitmap pic = BitmapFactory.decodeByteArray(houseNum, 0, houseNum.length);
+                                        mBinding.ivHouseNum.setImageBitmap(pic);
+                                    }
+                                    byte[] suSafe = decoder.decodeBuffer(list.get(0).getSam_base64());
+                                    if(suSafe != null && suSafe.length > 0){
+                                        Bitmap pic = BitmapFactory.decodeByteArray(suSafe, 0, suSafe.length);
+                                        mBinding.ivSuSafe.setImageBitmap(pic);
+                                    }
                                 }
                             }
                         } catch (Exception e) {
@@ -171,9 +189,55 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
             if (bundle != null) {
                 if (bundle.getInt(XQRCode.RESULT_TYPE) == XQRCode.RESULT_SUCCESS) {
                     String result = bundle.getString(XQRCode.RESULT_DATA);
-                     LogUtils.d("Scan content:" + result);
+                    LogUtils.d("Scan content:" + result);
+
+                    String id = "";
+                    final String str = "code=";
+                    if(result.contains(str)){
+                        int index = result.lastIndexOf(str) + str.length();
+                        id = result.substring(index);
+                    } else {
+                        id = result;
+                    }
+                    LogUtils.d("Scan id:" + id);
+                    checkRoomSource(id);
                 }
             }
         }
+    }
+
+    private void checkRoomSource(String id) {
+        UserInfo userInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
+        if(null == userInfo){
+            return;
+        }
+
+        RoomSourceRequest request = new RoomSourceRequest();
+//        request.setCybh(userInfo.getCybh());
+//        request.setDwbh(userInfo.getDwbh());
+        request.setS_val(id);
+        getRepository(NetService.class).getRoomSource(UrlConfig.WYF_FJXX, request.getRequestBody())
+                .compose(dispatchSchedulers(false))
+                .subscribe(new RepositorySubscriber<RoomSourceResponse>() {
+                    @Override
+                    protected void onResponse(RoomSourceResponse bean) {
+                        try {
+                            if (bean != null && bean.getCode().equals(Constants.RESPONSE_SUCCEED)) {
+                                RoomResponse.DataBean pageBean = bean.getData();
+                                List<Room> list = pageBean.getList();
+                                if (!list.isEmpty()) {
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable t) {
+                        super.onError(t);
+                    }
+                });
     }
 }

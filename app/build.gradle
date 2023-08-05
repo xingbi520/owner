@@ -73,6 +73,7 @@ dependencies {
   implementation 'com.google.android.material:material:1.2.1'
 
   implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
+  implementation files('libs\\sun.misc.BASE64Decoder.jar')
   annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
 
   implementation 'com.github.hackware1993:MagicIndicator:1.7.0'

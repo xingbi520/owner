@@ -13,6 +13,7 @@ import com.shendun.renter.repository.bean.OrderResponse;
 import com.shendun.renter.repository.bean.GetPwdResponse;
 import com.shendun.renter.repository.bean.ResponseBean;
 import com.shendun.renter.repository.bean.RoomResponse;
+import com.shendun.renter.repository.bean.RoomSourceResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -35,6 +36,10 @@ public interface NetService {
     //房间列表接口
     @POST("/API/wyf/{key}")
     Observable<RoomResponse> getRooms(@Path("key") String key, @Body RequestBody requestBody);
+
+    //房源核查
+    @POST("/API/wyf/{key}")
+    Observable<RoomSourceResponse> getRoomSource(@Path("key") String key, @Body RequestBody requestBody);
 
     //增加租客接口
     @POST("/API/wyf/{key}")
