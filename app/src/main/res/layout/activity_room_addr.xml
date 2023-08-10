@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/bg_green_changing">
+
+        <com.shendun.topbar.widget.TopBar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:centerText="@string/room_address_detail"
+            app:centerTextColor="#333"
+            app:centerTextSize="20sp"
+            app:centerType="textView"
+            app:leftType="imageButton"
+            app:rightTextColor="#008aff"
+            app:rightTextSize="15sp"
+            app:rightType="textView"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="65dp"
+            android:layout_marginBottom="73dp"
+            app:layout_constraintTop_toBottomOf="@id/topbar">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/shape_radius_6_f7f7fc">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="20dp"
+                    android:paddingHorizontal="5dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/lt_id"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_x_position"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_y_position"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_address_info"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_responsible_code"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_responsible_name"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_police_code"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_police_name"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_branch_code"
+                        layout="@layout/item_room_addr_detail" />
+
+                    <include
+                        android:id="@+id/lt_branch_name"
+                        layout="@layout/item_room_addr_detail" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

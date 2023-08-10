@@ -15,6 +15,7 @@ import com.shendun.architecture.net.RepositorySubscriber;
 import com.shendun.renter.R;
 import com.shendun.renter.bean.Constants;
 import com.shendun.renter.config.ConstantConfig;
+import com.shendun.renter.config.ParamConfig;
 import com.shendun.renter.config.SpConfig;
 import com.shendun.renter.config.UrlConfig;
 import com.shendun.renter.databinding.ActivityRoomDetailBinding;
@@ -30,7 +31,6 @@ import com.shendun.renter.utils.ScreenUtil;
 import com.shendun.renter.xqrcode.CustomCaptureActivity;
 import com.xuexiang.xqrcode.XQRCode;
 
-import java.io.IOException;
 import java.util.List;
 
 import Decoder.BASE64Decoder;
@@ -192,9 +192,13 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                     LogUtils.d("Scan content:" + result);
 
                     String id = "";
-                    final String str = "code=";
-                    if(result.contains(str)){
-                        int index = result.lastIndexOf(str) + str.length();
+                    final String strCode = "code=";
+                    final String strStdzysid = "stdzysid=";
+                    if(result.contains(strCode)){
+                        int index = result.lastIndexOf(strCode) + strCode.length();
+                        id = result.substring(index);
+                    } else if(result.contains(strStdzysid)){
+                        int index = result.lastIndexOf(strStdzysid) + strStdzysid.length();
                         id = result.substring(index);
                     } else {
                         id = result;
@@ -213,24 +217,21 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
         }
 
         RoomSourceRequest request = new RoomSourceRequest();
-//        request.setCybh(userInfo.getCybh());
-//        request.setDwbh(userInfo.getDwbh());
-        request.setS_val(id);
-        getRepository(NetService.class).getRoomSource(UrlConfig.WYF_FJXX, request.getRequestBody())
+        request.setStdzysid(id);
+        getRepository(NetService.class).getRoomSource(UrlConfig.GET_DZXX, request.getRequestBody())
                 .compose(dispatchSchedulers(false))
                 .subscribe(new RepositorySubscriber<RoomSourceResponse>() {
                     @Override
                     protected void onResponse(RoomSourceResponse bean) {
-                        try {
-                            if (bean != null && bean.getCode().equals(Constants.RESPONSE_SUCCEED)) {
-                                RoomResponse.DataBean pageBean = bean.getData();
-                                List<Room> list = pageBean.getList();
-                                if (!list.isEmpty()) {
-
-                                }
+                        if (bean != null && bean.getCode().equals(Constants.RESPONSE_SUCCEED)) {
+                            RoomSourceResponse.DataDTO data = bean.getData();
+                            if(data != null){
+                                Intent intent  = new Intent(RoomDetailActivity.this, RoomAddrActivity.class);
+                                intent.putExtra(ParamConfig.PARAM_EXTRA, data);
+                                startActivity(intent);
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else {
+                            showCenterToast(bean.getMessage());
                         }
                     }
 

@@ -1,95 +1,141 @@
 package com.shendun.renter.repository.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
-import java.util.List;
 
 public class RoomSourceResponse implements Serializable {
-
-    /**
-     * Code : 0
-     * Message : 操作成功
-     * Data : {"Recordcount":"2","Currpage":"1","list":[{"fhid":"FH320602W999191226093817","fh":"302","fwid":"FW201912100001","fwmc":"某小区1","fwdz":"","dh":"55","fjlc":"2","fjlx":"单人房","zt":"2","pcode":"32060201","pname":"学田派出所","gcode":"320602","gname":"崇川区分局","dwdm":null,"jgbh":null},{"fhid":"FH320602W999191226093817","fh":"302","fwid":"FW201912100001","fwmc":"某小区1","fwdz":"","dh":"55","fjlc":"2","fjlx":"单人房","zt":"2","pcode":"32060201","pname":"学田派出所","gcode":"320602","gname":"崇川区分局","dwdm":null,"jgbh":null}]}
-     */
-
-    private String Code;
-    private String Message;
-    /**
-     * Recordcount : 2
-     * Currpage : 1
-     * list : [{"fhid":"FH320602W999191226093817","fh":"302","fwid":"FW201912100001","fwmc":"某小区1","fwdz":"","dh":"55","fjlc":"2","fjlx":"单人房","zt":"2","pcode":"32060201","pname":"学田派出所","gcode":"320602","gname":"崇川区分局","dwdm":null,"jgbh":null},{"fhid":"FH320602W999191226093817","fh":"302","fwid":"FW201912100001","fwmc":"某小区1","fwdz":"","dh":"55","fjlc":"2","fjlx":"单人房","zt":"2","pcode":"32060201","pname":"学田派出所","gcode":"320602","gname":"崇川区分局","dwdm":null,"jgbh":null}]
-     */
-
-    private RoomResponse.DataBean Data;
+    @SerializedName("code")
+    private String code;
+    @SerializedName("message")
+    private String message;
+    @SerializedName("data")
+    private DataDTO data;
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
-    public void setCode(String Code) {
-        this.Code = Code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public RoomResponse.DataBean getData() {
-        return Data;
+    public DataDTO getData() {
+        return data;
     }
 
-    public void setData(RoomResponse.DataBean Data) {
-        this.Data = Data;
+    public void setData(DataDTO data) {
+        this.data = data;
     }
 
-    public static class DataBean {
-        private String Recordcount;
-        private String Currpage;
-        /**
-         * fhid : FH320602W999191226093817
-         * fh : 302
-         * fwid : FW201912100001
-         * fwmc : 某小区1
-         * fwdz :
-         * dh : 55
-         * fjlc : 2
-         * fjlx : 单人房
-         * zt : 2
-         * pcode : 32060201
-         * pname : 学田派出所
-         * gcode : 320602
-         * gname : 崇川区分局
-         * dwdm : null
-         * jgbh : null
-         */
+    public static class DataDTO implements Serializable{
+        @SerializedName("st_dzysid")
+        private String stDzysid;
+        @SerializedName("xzb")
+        private String xzb;
+        @SerializedName("yzb")
+        private String yzb;
+        @SerializedName("dzxx")
+        private String dzxx;
+        @SerializedName("zrqdm")
+        private String zrqdm;
+        @SerializedName("zrqmc")
+        private String zrqmc;
+        @SerializedName("pcsdm")
+        private String pcsdm;
+        @SerializedName("pcsmc")
+        private String pcsmc;
+        @SerializedName("fjdm")
+        private String fjdm;
+        @SerializedName("fjmc")
+        private String fjmc;
 
-        private List<Room> list;
-
-        public String getRecordcount() {
-            return Recordcount;
+        public String getStDzysid() {
+            return stDzysid;
         }
 
-        public void setRecordcount(String Recordcount) {
-            this.Recordcount = Recordcount;
+        public void setStDzysid(String stDzysid) {
+            this.stDzysid = stDzysid;
         }
 
-        public String getCurrpage() {
-            return Currpage;
+        public String getXzb() {
+            return xzb;
         }
 
-        public void setCurrpage(String Currpage) {
-            this.Currpage = Currpage;
+        public void setXzb(String xzb) {
+            this.xzb = xzb;
         }
 
-        public List<Room> getList() {
-            return list;
+        public String getYzb() {
+            return yzb;
         }
 
-        public void setList(List<Room> list) {
-            this.list = list;
+        public void setYzb(String yzb) {
+            this.yzb = yzb;
+        }
+
+        public String getDzxx() {
+            return dzxx;
+        }
+
+        public void setDzxx(String dzxx) {
+            this.dzxx = dzxx;
+        }
+
+        public String getZrqdm() {
+            return zrqdm;
+        }
+
+        public void setZrqdm(String zrqdm) {
+            this.zrqdm = zrqdm;
+        }
+
+        public String getZrqmc() {
+            return zrqmc;
+        }
+
+        public void setZrqmc(String zrqmc) {
+            this.zrqmc = zrqmc;
+        }
+
+        public String getPcsdm() {
+            return pcsdm;
+        }
+
+        public void setPcsdm(String pcsdm) {
+            this.pcsdm = pcsdm;
+        }
+
+        public String getPcsmc() {
+            return pcsmc;
+        }
+
+        public void setPcsmc(String pcsmc) {
+            this.pcsmc = pcsmc;
+        }
+
+        public String getFjdm() {
+            return fjdm;
+        }
+
+        public void setFjdm(String fjdm) {
+            this.fjdm = fjdm;
+        }
+
+        public String getFjmc() {
+            return fjmc;
+        }
+
+        public void setFjmc(String fjmc) {
+            this.fjmc = fjmc;
         }
     }
 }

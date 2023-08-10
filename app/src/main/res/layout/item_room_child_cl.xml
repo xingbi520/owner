@@ -88,7 +88,7 @@
                 android:background="@drawable/order_circle_corner"
                 android:textSize="13sp"
                 android:text="标准码"
-                app:layout_constraintTop_toTopOf="@id/iv_image"
+                app:layout_constraintTop_toTopOf="@id/tv_room_floor"
                 app:layout_constraintEnd_toStartOf="@id/ll_status"/>
 
             <LinearLayout

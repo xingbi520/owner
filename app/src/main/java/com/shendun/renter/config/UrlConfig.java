@@ -9,7 +9,7 @@ public class UrlConfig {
     public static final String FD_REG = "fd_reg";                      //分配密码
     public static final String FD_LOGIN = "fd_login";                  //登录
     public static final String FD_SEARCH_FH = "fd_search_fh";          //房间信息查询
-    public static final String WYF_FJXX = "wyf_fjxx";                  //房源核查
+    public static final String GET_DZXX = "getDzxx";                  //房源核查
     public static final String FD_ADD_ZK = "fd_add_zk";                //租客订单信息登记
     public static final String FD_V2_ADD_ZK = "fd_add_zk";             //租客订单信息登记v2
     public static final String FD_LKXX_MINOR = "fd_lkxx_minor";        //入住未成年人更新

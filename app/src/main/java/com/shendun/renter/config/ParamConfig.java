@@ -12,4 +12,6 @@ public class ParamConfig {
 
     public static final String PARAM_ORDER_TYPE = "param_order_type"; //1表示订单，2表示客人入住
     public static final String PARAM_PERSON_STATUS = "param_person_status"; //I(大写的i)表示新增，U表示更新
+
+    public static final String PARAM_EXTRA = "param_extra"; //传递数据
 }
