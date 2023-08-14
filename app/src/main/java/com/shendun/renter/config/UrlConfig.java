@@ -13,6 +13,7 @@ public class UrlConfig {
     public static final String FD_ADD_ZK = "fd_add_zk";                //租客订单信息登记
     public static final String FD_V2_ADD_ZK = "fd_add_zk";             //租客订单信息登记v2
     public static final String FD_LKXX_MINOR = "fd_lkxx_minor";        //入住未成年人更新
+    public static final String FD_FJXX = "fd_fjxx";                    //更新标准地址
     public static final String GET_XQDM = "get_xqdm";                  //辖区代码查询
     public static final String FD_DDLB = "fd_ddlb";                    //租客订单列表
     public static final String FD_DDXX = "fd_ddxx";                    //订单详情

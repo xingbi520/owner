@@ -41,6 +41,10 @@ public interface NetService {
     @POST("/API/wyf/{key}")
     Observable<RoomSourceResponse> getRoomSource(@Path("key") String key, @Body RequestBody requestBody);
 
+    //上传标准地址接口
+    @POST("/API/wyf/{key}")
+    Observable<ResponseBean> uploadStandardAddress(@Path("key") String key, @Body RequestBody requestBody);
+
     //增加租客接口
     @POST("/API/wyf/{key}")
     Observable<ResponseBean> getAddZks(@Path("key") String key, @Body RequestBody requestBody);

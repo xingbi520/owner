@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import com.shendun.architecture.net.RepositoryManager;
 import com.shendun.architecture.utils.DeviceUtils;
+import com.shendun.renter.bean.StandardAddressInfo;
 import com.shendun.renter.config.UrlConfig;
 import com.shendun.renter.repository.bean.BaseResponse;
 import com.shendun.renter.repository.bean.DownloadResponseBody;
@@ -51,6 +52,8 @@ public class RenterApplication extends Application {
     private float screenWidth, screenHeight;
 
     private final Gson gson = new Gson();
+
+    private StandardAddressInfo standardAddressInfo;
 
     @Override
     public void onCreate() {
@@ -218,5 +221,13 @@ public class RenterApplication extends Application {
 
     public static RenterApplication getContext() {
         return context;
+    }
+
+    public StandardAddressInfo getStandardAddressInfo() {
+        return standardAddressInfo;
+    }
+
+    public void setStandardAddressInfo(StandardAddressInfo standardAddressInfo) {
+        this.standardAddressInfo = standardAddressInfo;
     }
 }

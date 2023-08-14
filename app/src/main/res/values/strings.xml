@@ -634,6 +634,9 @@
     <string name="room_branch_code">分局代码</string>
     <string name="room_branch_name">分局名称</string>
 
+    <string name="upload">上传</string>
+    <string name="upload_success">更新成功</string>
+
     <string name="app_update_msg">1.修复了一些问题\n2.优化功能代码\n</string>
     <string name="cloud_phone_state_denied_msg">该功能需要读取电话状态权限，不开启将无法正常工作！</string>
     <string name="cloud_never_sak_message">当前应用缺少必要权限。\n请点击"设置"-"权限"-打开所需权限。\n最后点击两次后退按钮，即可返回。</string>

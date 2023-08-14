@@ -13,7 +13,9 @@ import com.blankj.utilcode.util.LogUtils;
 import com.shendun.architecture.base.BaseActivity;
 import com.shendun.architecture.net.RepositorySubscriber;
 import com.shendun.renter.R;
+import com.shendun.renter.app.RenterApplication;
 import com.shendun.renter.bean.Constants;
+import com.shendun.renter.bean.StandardAddressInfo;
 import com.shendun.renter.config.ConstantConfig;
 import com.shendun.renter.config.ParamConfig;
 import com.shendun.renter.config.SpConfig;
@@ -44,6 +46,7 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
     private static final int REQUEST_QRCODE = 1;
 
     private Room mRoom;
+    private StandardAddressInfo mStandardAddressInfo;
 
     @Override
     protected int getLayoutId() {
@@ -72,6 +75,10 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
         mBinding.topbar.getCenterTextView().setText(R.string.room_detail);
         mBinding.topbar.getCenterTextView().setTextSize(ScreenUtil.dp2px(mContext, 6));
         mBinding.topbar.getCenterTextView().setTextColor(getResources().getColor(R.color.text_title_color));
+
+        mStandardAddressInfo = new StandardAddressInfo();
+        RenterApplication.getContext().setStandardAddressInfo(mStandardAddressInfo);
+        mStandardAddressInfo.setDtype("U");
 
         mRoom = (Room)getIntent().getSerializableExtra(SpConfig.KEY_ROOM_DETAIL);
         if(null != mRoom){
@@ -102,6 +109,8 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                     mBinding.llRoom.tvCheckIn.setVisibility(View.GONE);
                 }
             }
+
+            mStandardAddressInfo.setFhid(mRoom.getFhid());
         }
 
         mBinding.llRoom.tvScan.setOnClickListener(this);
@@ -148,6 +157,7 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                                         Bitmap pic = BitmapFactory.decodeByteArray(suSafe, 0, suSafe.length);
                                         mBinding.ivSuSafe.setImageBitmap(pic);
                                     }
+                                    mStandardAddressInfo.setSam_base64(list.get(0).getSam_base64());
                                 }
                             }
                         } catch (Exception e) {
@@ -204,6 +214,7 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                         id = result;
                     }
                     LogUtils.d("Scan id:" + id);
+                    mStandardAddressInfo.setSam(id);
                     checkRoomSource(id);
                 }
             }
@@ -226,8 +237,8 @@ public class RoomDetailActivity extends BaseActivity<ActivityRoomDetailBinding>
                         if (bean != null && bean.getCode().equals(Constants.RESPONSE_SUCCEED)) {
                             RoomSourceResponse.DataDTO data = bean.getData();
                             if(data != null){
+                                mStandardAddressInfo.setDataDTO(data);
                                 Intent intent  = new Intent(RoomDetailActivity.this, RoomAddrActivity.class);
-                                intent.putExtra(ParamConfig.PARAM_EXTRA, data);
                                 startActivity(intent);
                             }
                         } else {
