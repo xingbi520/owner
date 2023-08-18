@@ -5,6 +5,10 @@ package com.shendun.renter.config;
  * Time: 11:31 AM
  */
 public class SpConfig {
+    public static final String SP_PHONE = "sp_phone";
+    public static final String SP_PASSWORD = "sp_password";
+    public static final String SP_AUTO_LOGIN = "sp_auto_login";
+
     //用户手机号
     public static final String KEY_PHONE_NUMBER="key_phone_number";
     //新增房客手机号

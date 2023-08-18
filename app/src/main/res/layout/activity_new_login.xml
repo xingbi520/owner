@@ -149,6 +149,34 @@
                     android:src="@mipmap/show_psw_press"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/auto_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="18dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_login_pwd">
+                <ImageView
+                    android:id="@+id/checkbox_auto_login"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:scaleType="fitCenter"
+                    android:background="@mipmap/ic_check_box_off" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_5a5a5a"
+                    android:text="自动登录" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/bt_login_submit"
                 android:layout_width="match_parent"
@@ -163,7 +191,7 @@
                 tools:targetApi="lollipop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_login_pwd"/>
+                app:layout_constraintTop_toBottomOf="@id/auto_login"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,9 @@
 package com.shendun.renter.fragment;
 
+import static com.shendun.renter.config.SpConfig.SP_AUTO_LOGIN;
+import static com.shendun.renter.config.SpConfig.SP_PASSWORD;
+import static com.shendun.renter.config.SpConfig.SP_PHONE;
+
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -64,9 +68,16 @@ public class MeFragment extends BaseFragment<FragmentMeBinding> implements View.
         } else if(view == mBinding.clOrder){
             EventBus.getDefault().post(new TabJumpEvent(MainActivity.MAIN_POSITION, false));
         } else if(view == mBinding.clQuit){
+            logOut();
             startActivity(new Intent(mContext, LoginActivity.class));
             MainActivity mainActivity = (MainActivity) _mActivity;
             mainActivity.finish();
         }
+    }
+
+    private void logOut(){
+        DataHelper.removeSF(mContext, SP_PHONE);
+        DataHelper.removeSF(mContext, SP_PASSWORD);
+        DataHelper.removeSF(mContext, SP_AUTO_LOGIN);
     }
 }

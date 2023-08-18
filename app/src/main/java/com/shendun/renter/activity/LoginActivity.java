@@ -1,5 +1,9 @@
 package com.shendun.renter.activity;
 
+import static com.shendun.renter.config.SpConfig.SP_AUTO_LOGIN;
+import static com.shendun.renter.config.SpConfig.SP_PASSWORD;
+import static com.shendun.renter.config.SpConfig.SP_PHONE;
+
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
@@ -65,6 +69,8 @@ public class LoginActivity extends BaseActivity<ActivityNewLoginBinding>
      */
     private static final int SMS_CODE_INIT_SECOND = 60;
 
+    private boolean mIsAutoLoginChecked = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_new_login;
@@ -76,10 +82,27 @@ public class LoginActivity extends BaseActivity<ActivityNewLoginBinding>
 
         mBinding.ivLoginDel.setOnClickListener(this);
         mBinding.btGetVerifyCode.setOnClickListener(this);
+        mBinding.autoLogin.setOnClickListener(this);
         mBinding.btLoginSubmit.setOnClickListener(this);
 
         LoginActivityPermissionsDispatcher.readPhoneStateWithPermissionCheck(
                 LoginActivity.this);
+
+        autoLogin();
+    }
+
+    private void autoLogin(){
+        mIsAutoLoginChecked = DataHelper.getBooleanSF(mContext, SP_AUTO_LOGIN, false);
+        if(mIsAutoLoginChecked){
+            mBinding.checkboxAutoLogin.setBackgroundResource(R.mipmap.ic_check_box_on);
+            String phone = DataHelper.getStringSF(mContext, SP_PHONE);
+            String pwd = DataHelper.getStringSF(mContext, SP_PASSWORD);
+            mBinding.etLoginPhone.setText(phone);
+            mBinding.etLoginCode.setText(pwd);
+            login(phone,pwd);
+        } else {
+            mBinding.checkboxAutoLogin.setBackgroundResource(R.mipmap.ic_check_box_off);
+        }
     }
 
     /**
@@ -174,38 +197,62 @@ public class LoginActivity extends BaseActivity<ActivityNewLoginBinding>
                 return;
             }
 
-            String unicode = AppUtils.isAppDebug() ? "HUAWEI_HWOCE-ML_e1274a1f-ea8f-43ca-8e1f-a2a59df08958-194bbc13" : DeviceUtils.getUniqueDeviceId();
-            LogUtils.dTag(TAG, "unicode:" + unicode);
-
-            LoginRequest loginRequest = new LoginRequest();
-            loginRequest.setTel(phone);
-            loginRequest.setPassword(pwd);
-            loginRequest.setUnicode(unicode);
-            getRepository(NetService.class).appLogin(UrlConfig.FD_LOGIN, loginRequest.getRequestBody())
-                    .compose(dispatchSchedulers(true))
-                    .subscribe(new RepositorySubscriber<LoginResponse>() {
-                        @Override
-                        protected void onResponse(LoginResponse result) {
-                            try {
-                                if (result.getCode().equals("0")) {
-                                    UserInfo user = result.getData();
-                                    loginSucceed(user);
-                                } else {
-                                    String message = result.getMessage();
-                                    showCenterToast(message);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable t) {
-                            super.onError(t);
-                            showCenterToast(getString(R.string.network_failed));
-                        }
-                    });
+            login(phone, pwd);
+        } else if(v == mBinding.autoLogin){
+            if(mIsAutoLoginChecked){
+                mIsAutoLoginChecked = false;
+                mBinding.checkboxAutoLogin.setBackgroundResource(R.mipmap.ic_check_box_off);
+            }else{
+                mIsAutoLoginChecked = true;
+                mBinding.checkboxAutoLogin.setBackgroundResource(R.mipmap.ic_check_box_on);
+            }
+            DataHelper.setBooleanSF(mContext, SP_AUTO_LOGIN, mIsAutoLoginChecked);
         }
+    }
+
+    /**
+     * 登录
+     */
+    private void login(String phone, String pwd) {
+        if(null == phone || TextUtils.isEmpty(phone)
+        || null == pwd || TextUtils.isEmpty(pwd)){
+            return;
+        }
+
+        String unicode = AppUtils.isAppDebug() ? "HUAWEI_HWOCE-ML_e1274a1f-ea8f-43ca-8e1f-a2a59df08958-194bbc13" : DeviceUtils.getUniqueDeviceId();
+        LogUtils.dTag(TAG, "unicode:" + unicode);
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setTel(phone);
+        loginRequest.setPassword(pwd);
+        loginRequest.setUnicode(unicode);
+        getRepository(NetService.class).appLogin(UrlConfig.FD_LOGIN, loginRequest.getRequestBody())
+                .compose(dispatchSchedulers(true))
+                .subscribe(new RepositorySubscriber<LoginResponse>() {
+                    @Override
+                    protected void onResponse(LoginResponse result) {
+                        try {
+                            if (result.getCode().equals("0")) {
+                                DataHelper.setStringSF(mContext, SP_PHONE, phone);
+                                DataHelper.setStringSF(mContext, SP_PASSWORD, pwd);
+
+                                UserInfo user = result.getData();
+                                loginSucceed(user);
+                            } else {
+                                String message = result.getMessage();
+                                showCenterToast(message);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable t) {
+                        super.onError(t);
+                        showCenterToast(getString(R.string.network_failed));
+                    }
+                });
     }
 
     /**
