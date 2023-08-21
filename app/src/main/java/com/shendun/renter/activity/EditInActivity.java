@@ -22,12 +22,9 @@ import com.blankj.utilcode.constant.TimeConstants;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.github.gzuliyujiang.wheelpicker.DatePicker;
 import com.github.gzuliyujiang.wheelpicker.NumberPicker;
 import com.github.gzuliyujiang.wheelpicker.TimePicker;
-import com.github.gzuliyujiang.wheelpicker.annotation.DateMode;
 import com.github.gzuliyujiang.wheelpicker.annotation.TimeMode;
-import com.github.gzuliyujiang.wheelpicker.contract.OnDatePickedListener;
 import com.github.gzuliyujiang.wheelpicker.contract.OnNumberPickedListener;
 import com.github.gzuliyujiang.wheelpicker.contract.OnNumberSelectedListener;
 import com.github.gzuliyujiang.wheelpicker.contract.OnTimePickedListener;
@@ -44,15 +41,18 @@ import com.shendun.architecture.net.RepositorySubscriber;
 import com.shendun.renter.R;
 import com.shendun.renter.app.RenterApplication;
 import com.shendun.renter.bean.Constants;
-import com.shendun.renter.bean.OrderType;
 import com.shendun.renter.config.ConstantConfig;
 import com.shendun.renter.config.ParamConfig;
 import com.shendun.renter.config.SpConfig;
 import com.shendun.renter.config.UrlConfig;
 import com.shendun.renter.databinding.ActivityEditOccupantBinding;
+import com.shendun.renter.dialog.NormalDialog;
+import com.shendun.renter.dialog.animation.FadeEnter.FadeEnter;
+import com.shendun.renter.dialog.animation.ZoomExit.ZoomOutExit;
 import com.shendun.renter.fragment.BottomMenuFragment;
 import com.shendun.renter.fragment.adapter.MenuItem;
 import com.shendun.renter.fragment.adapter.MenuItemOnClickListener;
+import com.shendun.renter.inter.CallbackInter;
 import com.shendun.renter.repository.NetService;
 import com.shendun.renter.repository.bean.AddV2ZkRequest;
 import com.shendun.renter.repository.bean.GetPlatFromRequest;
@@ -692,6 +692,21 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             return;
         }
 
+        //续住修改时修改保存，预离时间不能小于当前时间
+        if(ConstantConfig.ORDER_UADATE.equals(mPersonStatus) && (action == ACTION.save)){
+            String outTime = mOutTimeEntity.toString();
+            String time = outDate + " " + outTime;
+            String now = DatimeEntity.now().toString();
+            LogUtils.dTag(TAG, "续住修改 time:" + time + " now:" + now + " result:" + DateUtil.compareDate(time, now));
+            if(-1 == DateUtil.compareDate(time, now)){
+                showDlg(getString(R.string.dlg_title_preorder_modify), getString(R.string.out_early_now), null);
+                return;
+            } else if(mDay > ConstantConfig.DAY_MAX){
+                showDlg(getString(R.string.dlg_title_preorder_modify), getString(R.string.reorder), null);
+                return;
+            }
+        }
+
         AddV2ZkRequest request = new AddV2ZkRequest();
         request.setPtype((action == ACTION.checkIn) ? ConstantConfig.TYPE_COHA : ConstantConfig.TYPE_ORDER); //数据类型，1表示订单，2表示主客直接入住，客人入住
         request.setStype((action == ACTION.checkIn) ? ConstantConfig.ORDER_ADD : ConstantConfig.ORDER_UADATE);      //I(大写的i)表示新增，U表示更新
@@ -743,23 +758,31 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         request.setG_is_patrol_erro(mInspec);
         request.setG_patrol_happening(inspectionStay);
         request.setBz(bz);
-        getRepository(NetService.class).getAddV2Zks(UrlConfig.FD_V2_ADD_ZK, request.getRequestBody())
-                .compose(dispatchSchedulers(true))
-                .subscribe(new RepositorySubscriber<ResponseBean>() {
-                    @Override
-                    protected void onResponse(ResponseBean result) {
-                        if ("0".equals(result.getCode())) {
-                            showCenterToast("成功");
-                            finish();
-                        } else {
-                            showCenterToast(result.getMessage());
-                        }
-                    }
 
+        showDlg(getString(R.string.dlg_title_friendly_tips),
+                getString(R.string.dlg_content_preorder_modify),
+                new CallbackInter() {
                     @Override
-                    public void onError(@NonNull Throwable t) {
-                        super.onError(t);
-                        showCenterToast(getString(R.string.network_failed));
+                    public void doAction() {
+                        getRepository(NetService.class).getAddV2Zks(UrlConfig.FD_V2_ADD_ZK, request.getRequestBody())
+                                .compose(dispatchSchedulers(true))
+                                .subscribe(new RepositorySubscriber<ResponseBean>() {
+                                    @Override
+                                    protected void onResponse(ResponseBean result) {
+                                        if ("0".equals(result.getCode())) {
+                                            showCenterToast("成功");
+                                            finish();
+                                        } else {
+                                            showCenterToast(result.getMessage());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable t) {
+                                        super.onError(t);
+                                        showCenterToast(getString(R.string.network_failed));
+                                    }
+                                });
                     }
                 });
     }
@@ -1499,6 +1522,32 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             photoImgPath = path;
             mBinding.ivPortraitScene.setImageBitmap(bitmap);
         }
+    }
+
+    private void showDlg(String title, String content, CallbackInter callBack){
+        final NormalDialog dialog = new NormalDialog(mContext);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.isContentShow(true)
+                .title(title)
+                .titleTextSize(50f)
+                .content(content)
+                .contentTextSize(50f)
+                .contentTextColor(getResources().getColor(R.color.cloud_normal_dark))
+                .style(NormalDialog.STYLE_TWO)//
+                .showAnim(new FadeEnter())
+                .btnNum(1)
+                .btnTextSize(45f)
+                .btnText(getString(R.string.btn_ok))
+                .btnTextColor(getResources().getColor(R.color.cloud_theme))
+                .dismissAnim(new ZoomOutExit())//
+                .show();
+        dialog.setOnBtnClickL(() -> {
+            if(null != callBack){
+                callBack.doAction();
+            }
+
+            dialog.dismiss();
+        });
     }
 
     private  void nerverAskAgainStorage() {

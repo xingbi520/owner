@@ -618,7 +618,13 @@
     <string name="modify_save">修改保存</string>
     <string name="direct_in">直接入住</string>
 
-    <string name="dlg_content_missed_name_idcard">为便于管理是否确定不再录入姓名和证件号码！</string>
+    <string name="dlg_title_preorder_modify">预订修改保存提示</string>
+    <string name="dlg_title_friendly_tips">友情提示</string>
+    <string name="dlg_content_missed_name_idcard">请确保“平台名称”-“订单号码”-“手机号码”三要素的准确性，同时为保护公民个人隐私不再录入姓名和证件号码！</string>
+    <string name="dlg_content_preorder_modify">根据管理要求，平台下订单N次须退房后重新办理入住登记N次！</string>
+    <string name="reorder">根据公安机关管理要求，入住人员须退房后重新办理入住登记！</string>
+    <string name="out_early_now">逻辑错误，请正确修改预离天数或预离时间后保存</string>
+
     <string name="hint_baby_info">请输入婴幼儿姓名/性别/年龄/生日等</string>
     <string name="hint_desc_info">请输入备注信息</string>
 

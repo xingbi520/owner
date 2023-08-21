@@ -76,6 +76,34 @@ public class DateUtil {
     }
 
     /**
+     * 日期时间比较
+     *
+     * @param dataBefore
+     * @param dataAfter
+     * @return -1(dataBefore小于dataAfter); 0(dataBefore等于dataAfter); 1(dataBefore大于dataAfter);
+     */
+    public static int compareDate(String dataBefore, String dataAfter) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date dt1 = df.parse(dataBefore);
+            Date dt2 = df.parse(dataAfter);
+            if (dt1.getTime() > dt2.getTime()) {
+                //dt1在dt2前
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                //dt1在dt2后
+                return -1;
+            } else {
+                //dt1和dt2相等
+                return 0;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
      * 日期偏移
      */
     public static Date dateOffset(String dateTime,int Num) {
