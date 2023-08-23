@@ -78,7 +78,7 @@ public class RoomAddrActivity extends BaseActivity<ActivityRoomAddrBinding>
             StandardAddressRequest request = new StandardAddressRequest();
             request.setDtype(mStandardAddressInfo.getDtype());
             request.setFhid(mStandardAddressInfo.getFhid());
-            request.setSam(mStandardAddressInfo.getSam());
+            request.setSam("");
             request.setSt_dzysid(mStandardAddressInfo.getDataDTO().getStDzysid());
             request.setXzb(mStandardAddressInfo.getDataDTO().getXzb());
             request.setYzb(mStandardAddressInfo.getDataDTO().getYzb());
