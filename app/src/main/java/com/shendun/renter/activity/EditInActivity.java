@@ -669,15 +669,6 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             }
         }
 
-        if(action == ACTION.checkIn){
-            if(null == photoImgPath || TextUtils.isEmpty(photoImgPath)){
-                showCenterToast("请拍摄人像场景照");
-                return;
-            } else {
-                mPic = CommonUtils.fileToBase64(photoImgPath);
-            }
-        }
-
         UserInfo userInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
         if(null == userInfo){
             LogUtils.d(TAG, "loadData:null == userInfo");
@@ -705,6 +696,12 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
                 showDlg(getString(R.string.dlg_title_preorder_modify), getString(R.string.reorder), null);
                 return;
             }
+        }
+
+        //未成年人必须拍照
+        if("1".equals(mMinorOrNo) && (null == mPic || TextUtils.isEmpty(mPic))){
+            showCenterToast("请拍摄人像场景照");
+            return;
         }
 
         AddV2ZkRequest request = new AddV2ZkRequest();
@@ -759,9 +756,12 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         request.setG_patrol_happening(inspectionStay);
         request.setBz(bz);
 
-        showDlg(getString(R.string.dlg_title_friendly_tips),
-                getString(R.string.dlg_content_preorder_modify),
-                new CallbackInter() {
+        String tips = getString(R.string.dlg_content_preorder_modify);
+        //成年人未拍照需增加提示
+        if("0".equals(mMinorOrNo) && (null == photoImgPath || TextUtils.isEmpty(photoImgPath))){
+            tips = "1." + getString(R.string.dlg_content_resposibility_tips) + "\n2." + getString(R.string.dlg_content_preorder_modify);
+        }
+        showDlg(getString(R.string.dlg_title_friendly_tips), tips, new CallbackInter() {
                     @Override
                     public void doAction() {
                         getRepository(NetService.class).getAddV2Zks(UrlConfig.FD_V2_ADD_ZK, request.getRequestBody())
@@ -1240,7 +1240,7 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
     }
 
     /**
-     * 显示隐藏未成年人选项
+     * 显示隐藏未成年人选项。true:未成年人，false：成年人
      */
     private void showMinorItems(boolean show) {
         int visible = show ? View.VISIBLE : View.GONE;
@@ -1265,6 +1265,9 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         } else {
             mBinding.llMinorSuspDesc.setVisibility(View.GONE);
         }
+
+        //成年人需显示人像场景照旁的红字
+        mBinding.tvPortraitSceneTips.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -1520,7 +1523,9 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         }
         if (bitmap != null) {
             photoImgPath = path;
+            mPic = CommonUtils.fileToBase64(photoImgPath);
             mBinding.ivPortraitScene.setImageBitmap(bitmap);
+            mBinding.tvPortraitSceneTips.setVisibility(View.GONE);
         }
     }
 

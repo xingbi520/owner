@@ -602,6 +602,20 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_divide_line"
                             app:layout_constraintStart_toStartOf="parent"/>
 
+                        <TextView
+                            android:id="@+id/tv_portrait_scene_tips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_pic_responsibility"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"
+                            android:textColor="@color/color_ff3a2e"
+                            android:textColorHint="@color/textColorHint"
+                            android:textSize="14sp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_divide_line"
+                            app:layout_constraintLeft_toRightOf="@id/tv_portrait_scene"/>
+
                         <ImageView
                             android:id="@+id/btn_portrait_scene"
                             android:layout_width="30dp"

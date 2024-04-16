@@ -621,7 +621,8 @@
     <string name="dlg_title_preorder_modify">预订修改保存提示</string>
     <string name="dlg_title_friendly_tips">友情提示</string>
     <string name="dlg_content_missed_name_idcard">请确保“平台名称”-“订单号码”-“手机号码”三要素的准确性，同时为保护公民个人隐私不再录入姓名和证件号码！</string>
-    <string name="dlg_content_preorder_modify">根据管理要求，平台下订单N次须退房后重新办理入住登记N次！</string>
+    <string name="dlg_content_resposibility_tips">我已知晓并自行承担未填拍上传核验图片的责任！</string>
+    <string name="dlg_content_preorder_modify">我已知晓网络住宿管理要求，网络平台订单入住的在退房后须以平台新订单办理入住登记！</string>
     <string name="reorder">根据公安机关管理要求，入住人员须退房后重新办理入住登记！</string>
     <string name="out_early_now">逻辑错误，请正确修改预离天数或预离时间后保存</string>
 
@@ -642,6 +643,7 @@
 
     <string name="upload">上传</string>
     <string name="upload_success">更新成功</string>
+    <string name="no_pic_responsibility">(未填拍时需确认职责)</string>
 
     <string name="app_update_msg">1.修复了一些问题\n2.优化功能代码\n</string>
     <string name="cloud_phone_state_denied_msg">该功能需要读取电话状态权限，不开启将无法正常工作！</string>
