@@ -756,12 +756,14 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
         request.setG_patrol_happening(inspectionStay);
         request.setBz(bz);
 
+        String titles = getString(R.string.dlg_title_friendly_tips);
         String tips = getString(R.string.dlg_content_preorder_modify);
         //成年人未拍照需增加提示
         if("0".equals(mMinorOrNo) && (null == photoImgPath || TextUtils.isEmpty(photoImgPath))){
+            titles = getString(R.string.dlg_title_risk_tips);
             tips = "1." + getString(R.string.dlg_content_resposibility_tips) + "\n2." + getString(R.string.dlg_content_preorder_modify);
         }
-        showDlg(getString(R.string.dlg_title_friendly_tips), tips, new CallbackInter() {
+        showDlg(titles, tips, new CallbackInter() {
                     @Override
                     public void doAction() {
                         getRepository(NetService.class).getAddV2Zks(UrlConfig.FD_V2_ADD_ZK, request.getRequestBody())
@@ -1264,6 +1266,7 @@ public class EditInActivity extends BaseActivity<ActivityEditOccupantBinding>
             }
         } else {
             mBinding.llMinorSuspDesc.setVisibility(View.GONE);
+            mBinding.llInspectionStay.setVisibility(View.GONE);
         }
 
         //成年人需显示人像场景照旁的红字

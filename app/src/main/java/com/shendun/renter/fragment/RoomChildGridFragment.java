@@ -113,6 +113,9 @@ public class RoomChildGridFragment extends BaseFragment<FragmentOrderGridRoomBin
         isRefreshing = true;
         adapter.getData().clear();
         adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+        adapter.setEnableLoadMore(false);
+        adapter.loadMoreEnd(true);
         loadData();
     }
 
@@ -178,7 +181,8 @@ public class RoomChildGridFragment extends BaseFragment<FragmentOrderGridRoomBin
             }
         });
         mBinding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_blue));
-//        roomChildAdapter.setEmptyView(R.layout.layout_empty, (ViewGroup) mBinding.rv.getParent());
+        adapter.loadMoreEnd(true);
+        //        roomChildAdapter.setEmptyView(R.layout.layout_empty, (ViewGroup) mBinding.rv.getParent());
 
         mBinding.clContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,7 +232,7 @@ public class RoomChildGridFragment extends BaseFragment<FragmentOrderGridRoomBin
                                         adapter.notifyDataSetChanged();
                                         return;
                                     }
-                                    adapter.loadMoreEnd(false);
+                                    adapter.loadMoreEnd();
                                 } else {
                                     if (page == 1) {
                                         adapter.setNewData(list);

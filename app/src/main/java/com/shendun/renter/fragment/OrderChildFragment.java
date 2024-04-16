@@ -169,7 +169,8 @@ public class OrderChildFragment extends BaseFragment<FragmentOrderRoomBinding> {
             }
         });
         mBinding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_blue));
-//        orderRoomAdapter.setEmptyView(R.layout.layout_empty, (ViewGroup) mBinding.rv.getParent());
+        orderChildAdapter.loadMoreEnd(true);
+        //        orderRoomAdapter.setEmptyView(R.layout.layout_empty, (ViewGroup) mBinding.rv.getParent());
     }
 
     private void loadData() {

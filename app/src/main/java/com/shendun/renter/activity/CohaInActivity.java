@@ -501,8 +501,9 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
 
         //成年人未拍照需增加提示
         if("0".equals(mMinorOrNo) && (null == mPic || TextUtils.isEmpty(mPic))){
+            String titles = getString(R.string.dlg_title_risk_tips);
             String tips = getString(R.string.dlg_content_resposibility_tips);
-            showDlg(getString(R.string.dlg_title_friendly_tips), tips, new CallbackInter() {
+            showDlg(titles, tips, new CallbackInter() {
                 @Override
                 public void doAction() {
                     submit(request);
@@ -774,6 +775,7 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
             }
         } else {
             mBinding.llMinorSuspDesc.setVisibility(View.GONE);
+            mBinding.llInspectionStay.setVisibility(View.GONE);
         }
 
         //成年人需显示人像场景照旁的红字
