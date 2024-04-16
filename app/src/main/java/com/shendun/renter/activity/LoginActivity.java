@@ -219,7 +219,8 @@ public class LoginActivity extends BaseActivity<ActivityNewLoginBinding>
             return;
         }
 
-        String unicode = AppUtils.isAppDebug() ? "HUAWEI_HWOCE-ML_e1274a1f-ea8f-43ca-8e1f-a2a59df08958-194bbc13" : DeviceUtils.getUniqueDeviceId();
+//        String unicode = AppUtils.isAppDebug() ? "HUAWEI_HWOCE-ML_e1274a1f-ea8f-43ca-8e1f-a2a59df08958-194bbc13" : DeviceUtils.getUniqueDeviceId();
+        String unicode = AppUtils.isAppDebug() ? "29be82a6786e53afb81049eac473766ad" : DeviceUtils.getUniqueDeviceId();
         LogUtils.dTag(TAG, "unicode:" + unicode);
 
         LoginRequest loginRequest = new LoginRequest();

@@ -50,9 +50,13 @@ import com.shendun.renter.config.ParamConfig;
 import com.shendun.renter.config.SpConfig;
 import com.shendun.renter.config.UrlConfig;
 import com.shendun.renter.databinding.ActivityAddCohabitantBinding;
+import com.shendun.renter.dialog.NormalDialog;
+import com.shendun.renter.dialog.animation.FadeEnter.FadeEnter;
+import com.shendun.renter.dialog.animation.ZoomExit.ZoomOutExit;
 import com.shendun.renter.fragment.BottomMenuFragment;
 import com.shendun.renter.fragment.adapter.MenuItem;
 import com.shendun.renter.fragment.adapter.MenuItemOnClickListener;
+import com.shendun.renter.inter.CallbackInter;
 import com.shendun.renter.repository.NetService;
 import com.shendun.renter.repository.bean.AddV2ZkRequest;
 import com.shendun.renter.repository.bean.GetPlatFromRequest;
@@ -445,11 +449,10 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
             return;
         }
 
-        if(null == photoImgPath || TextUtils.isEmpty(photoImgPath)){
+        //未成年人必须拍照
+        if("1".equals(mMinorOrNo) && (null == mPic || TextUtils.isEmpty(mPic))){
             showCenterToast("请拍摄人像场景照");
             return;
-        } else {
-            mPic = CommonUtils.fileToBase64(photoImgPath);
         }
 
         UserInfo userInfo = CacheManager.readFromJson(this, ConstantConfig.CACHE_NAME_USER_INFO, UserInfo.class);
@@ -495,6 +498,22 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
         request.setG_is_patrol_erro(mInspec);
         request.setG_patrol_happening(inspectionStay);
         request.setBz(bz);
+
+        //成年人未拍照需增加提示
+        if("0".equals(mMinorOrNo) && (null == mPic || TextUtils.isEmpty(mPic))){
+            String tips = getString(R.string.dlg_content_resposibility_tips);
+            showDlg(getString(R.string.dlg_title_friendly_tips), tips, new CallbackInter() {
+                @Override
+                public void doAction() {
+                    submit(request);
+                }
+            });
+        } else {
+            submit(request);
+        }
+    }
+
+    private void submit(AddV2ZkRequest request){
         getRepository(NetService.class).getAddV2Zks(UrlConfig.FD_V2_ADD_ZK, request.getRequestBody())
                 .compose(dispatchSchedulers(true))
                 .subscribe(new RepositorySubscriber<ResponseBean>() {
@@ -514,6 +533,32 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
                         showCenterToast(getString(R.string.network_failed));
                     }
                 });
+    }
+
+    private void showDlg(String title, String content, CallbackInter callBack){
+        final NormalDialog dialog = new NormalDialog(mContext);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.isContentShow(true)
+                .title(title)
+                .titleTextSize(50f)
+                .content(content)
+                .contentTextSize(50f)
+                .contentTextColor(getResources().getColor(R.color.cloud_normal_dark))
+                .style(NormalDialog.STYLE_TWO)//
+                .showAnim(new FadeEnter())
+                .btnNum(1)
+                .btnTextSize(45f)
+                .btnText(getString(R.string.btn_ok))
+                .btnTextColor(getResources().getColor(R.color.cloud_theme))
+                .dismissAnim(new ZoomOutExit())//
+                .show();
+        dialog.setOnBtnClickL(() -> {
+            if(null != callBack){
+                callBack.doAction();
+            }
+
+            dialog.dismiss();
+        });
     }
 
     /**
@@ -704,7 +749,7 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
     }
 
     /**
-     * 显示隐藏未成年人选项
+     * 显示隐藏未成年人选项。true:未成年人，false：成年人
      */
     private void showMinorItems(boolean show) {
         int visible = show ? View.VISIBLE : View.GONE;
@@ -730,6 +775,9 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
         } else {
             mBinding.llMinorSuspDesc.setVisibility(View.GONE);
         }
+
+        //成年人需显示人像场景照旁的红字
+        mBinding.tvPortraitSceneTips.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -950,7 +998,9 @@ public class CohaInActivity extends BaseActivity<ActivityAddCohabitantBinding>
         }
         if (bitmap != null) {
             photoImgPath = path;
+            mPic = CommonUtils.fileToBase64(photoImgPath);
             mBinding.ivPortraitScene.setImageBitmap(bitmap);
+            mBinding.tvPortraitSceneTips.setVisibility(View.GONE);
         }
     }
 
