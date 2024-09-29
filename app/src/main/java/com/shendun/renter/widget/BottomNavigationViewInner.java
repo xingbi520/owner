@@ -67,7 +67,8 @@ public class BottomNavigationViewInner extends BottomNavigationView {
 
     public BottomNavigationViewInner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TintTypedArray a = ThemeEnforcement.obtainTintedStyledAttributes(context, attrs, styleable.BottomNavigationView, defStyleAttr, style.Widget_Design_BottomNavigationView, new int[]{
+        TintTypedArray a = ThemeEnforcement.obtainTintedStyledAttributes(context, attrs,
+                styleable.BottomNavigationView, defStyleAttr, style.Widget_Design_BottomNavigationView, new int[]{
             styleable.BottomNavigationView_itemTextAppearanceInactive, styleable.BottomNavigationView_itemTextAppearanceActive});
         // clear if you don't have set item icon tint list
         if (!a.hasValue(

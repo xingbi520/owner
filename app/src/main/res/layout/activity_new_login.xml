@@ -21,15 +21,26 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="50dp"
                 android:gravity="center_horizontal"
-                android:text="通慧强基•新业态"
+                android:text="新业态"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="110dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_country_symble"
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="200dp"
                 android:gravity="center_horizontal"
                 android:text="智慧治安助管通采集系统"
                 android:textColor="@color/white"
@@ -44,7 +55,7 @@
             android:layout_below="@id/rl_title"
             android:background="@drawable/bg_login_info"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="40dp">
 
             <LinearLayout
                 android:id="@+id/ll_login_username"
@@ -206,7 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="版权所有：南通市公安局"
+                android:text="版权所有：公安部第三研究所"
                 android:textColor="@color/main_gray"
                 android:textSize="13sp" />
 
@@ -216,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_bottom_right"
                 android:gravity="center_horizontal"
-                android:text="技术支持：南通神盾科技"
+                android:text="技术支持：上海公共安全Equipment Co., Ltd"
                 android:textColor="@color/main_gray"
                 android:textSize="13sp" />
 
@@ -225,6 +236,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_bottom_title"
+                android:visibility="gone"
                 android:gravity="center_horizontal"
                 android:text="Copyright@2023 JsNt.sdsoft(QQ:800056978)ALL \nRights Reserved"
                 android:textColor="@color/main_gray"
